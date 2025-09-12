@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex Veritas AI</title>
+    <style>
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; background-color: #f0f2f5; margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        .header { background-color: #ffffff; padding: 1rem; border-bottom: 1px solid #ddd; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .header h1 { margin: 0; font-size: 1.5rem; color: #333; }
+        .container { display: flex; flex: 1; overflow: hidden; }
+        .chat-container { flex: 2; display: flex; flex-direction: column; background-color: #fff; margin: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; }
+        .thought-container { flex: 1; display: flex; flex-direction: column; background-color: #fff; margin: 1rem 1rem 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; }
+        .panel-header { background-color: #f7f7f7; padding: 0.75rem 1rem; border-bottom: 1px solid #e0e0e0; font-weight: 600; color: #555; }
+        #chat-box { flex: 1; padding: 1rem; overflow-y: auto; }
+        #thought-box { flex: 1; padding: 1rem; overflow-y: auto; font-family: monospace; font-size: 0.875rem; color: #444; white-space: pre-wrap; word-wrap: break-word; }
+        .user-message, .agent-message { padding: 0.75rem 1rem; border-radius: 18px; margin-bottom: 0.75rem; max-width: 80%; line-height: 1.5; }
+        .user-message { background-color: #007bff; color: white; align-self: flex-end; margin-left: auto; }
+        .agent-message { background-color: #e9ecef; color: #333; align-self: flex-start; }
+        .error-message { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .message-container { display: flex; flex-direction: column; }
+        #input-area { display: flex; padding: 1rem; border-top: 1px solid #ddd; background-color: #f8f9fa; }
+        #user-input { flex: 1; padding: 0.75rem; border: 1px solid #ccc; border-radius: 20px; outline: none; transition: border-color 0.2s; }
+        #user-input:focus { border-color: #007bff; }
+        #send-button { background-color: #007bff; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 20px; margin-left: 0.5rem; cursor: pointer; transition: background-color 0.2s; }
+        #send-button:disabled { background-color: #a0c7ff; cursor: not-allowed; }
+        .thought-item { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px dashed #eee; }
+        .thought-step { font-weight: bold; color: #0056b3; margin-bottom: 0.25rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Codex Veritas AI</h1>
+    </div>
+    <div class="container">
+        <div class="chat-container">
+            <div class="panel-header">Conversation</div>
+            <div id="chat-box" class="message-container">
+                <div class="agent-message">
+                    Hello! To begin, please clone a git repository into the `target_repo` directory.
+                    Then, run `poetry run codex analyze` from your terminal.
+                    Once analysis is complete, you can ask me anything about the codebase.
+                </div>
+            </div>
+            <div id="input-area">
+                <input type="text" id="user-input" placeholder="Ask a question..." autocomplete="off">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+        <div class="thought-container">
+            <div class="panel-header">Agent's Thought Process</div>
+            <div id="thought-box"></div>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const thoughtBox = document.getElementById('thought-box');
+
+        async function handleQuery() {
+            const question = userInput.value.trim();
+            if (!question) return;
+
+            appendMessage(question, 'user');
+            userInput.value = '';
+            sendButton.disabled = true;
+            thoughtBox.innerHTML = ''; // Clear previous thoughts
+
+            let agentMessageElement = appendMessage('', 'agent');
+            let thoughtStep = 1;
+
+            try {
+                const response = await fetch('/query', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: question })
+                });
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                
+                // Read the stream
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        break; // Exit loop when stream is finished
+                    }
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    // SSE messages are separated by double newlines
+                    const events = chunk.split('\n\n');
+                    
+                    events.forEach(eventStr => {
+                        if (eventStr.startsWith('data:')) {
+                            const eventData = eventStr.substring(5).trim();
+                            if (!eventData) return;
+                            
+                            try {
+                                const data = JSON.parse(eventData);
+
+                                if (data.type === 'thought') {
+                                    const thoughtItem = document.createElement('div');
+                                    thoughtItem.className = 'thought-item';
+                                    thoughtItem.innerHTML = `<div class="thought-step">Step ${thoughtStep++}:</div>${data.content}`;
+                                    thoughtBox.appendChild(thoughtItem);
+                                    thoughtBox.scrollTop = thoughtBox.scrollHeight;
+                                } else if (data.type === 'final_answer') {
+                                    // Using a library like 'marked' would be better for full markdown support
+                                    agentMessageElement.innerHTML = data.content.replace(/\n/g, '<br>');
+                                    chatBox.scrollTop = chatBox.scrollHeight;
+                                } else if (data.type === 'error') {
+                                    agentMessageElement.innerHTML = `An error occurred: ${data.content}`;
+                                    agentMessageElement.classList.add('error-message');
+                                }
+                            } catch (e) {
+                                console.error('Error parsing stream JSON:', eventData, e);
+                            }
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Fetch request for stream failed:', error);
+                agentMessageElement.innerHTML = 'An error occurred while connecting to the agent. Please check the server logs.';
+                agentMessageElement.classList.add('error-message');
+            } finally {
+                sendButton.disabled = false; // Re-enable button once everything is done
+            }
+        }
+
+        function appendMessage(text, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `${sender}-message`;
+            messageElement.innerHTML = text;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return messageElement;
+        }
+
+        sendButton.addEventListener('click', handleQuery);
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                handleQuery();
+            }
+        });
+
+    </script>
+</body>
+</html>

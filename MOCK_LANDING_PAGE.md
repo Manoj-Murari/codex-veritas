@@ -1,0 +1,10 @@
+The AI Coding Revolution Has a Trust Problem. We're Here to Fix It.
+Introducing Codex Veritas. The first AI developer tool that grounds every insight in the verifiable truth of your code's structure. Stop guessing. Start trusting.
+
+For too long, AI coding assistants have felt like a black box. They generate code that looks right, but often contains subtle flaws, relies on non-existent functions, or completely misunderstands the architecture of your project. We're developers, too, and we've felt the pain of debugging AI-generated "hallucinations." That's wasted time, broken builds, and a creeping erosion of trust in the very tools meant to help us.
+
+At Codex Veritas, we believe the solution isn't just a "better" LLM. The solution is Structural Honesty. This is our core philosophy and our technical foundation. Instead of just guessing based on statistical patterns in text, our engine builds a comprehensive, deterministic graph of your entire codebase—understanding every function, class, and the precise relationships between them. Every suggestion, every analysis, and every line of code generated is directly tied to the verifiable reality of your project's structure.
+
+This isn't another chatbot that gives plausible-sounding answers. This is a true software engineering partner. It understands how your code actually works, from the highest architectural level down to the individual function calls. It can trace data flows, identify callers and callees with certainty, and provide insights that are not just probable, but provably true based on the structure of your repository.
+
+We're building in public because we believe in transparency, just like we believe in the transparency of our tool's insights. Follow our journey on LinkedIn [placeholder for link] as we create an AI partner you can actually rely on. Welcome to the era of verifiable AI development. Welcome to Codex Veritas.
