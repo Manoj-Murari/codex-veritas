@@ -1,38 +1,40 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
 name = "codex-veritas"
 version = "0.1.0"
 description = "An AI software engineering platform built on the principle of Structural Honesty."
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
-packages = [{include = "codex_veritas", from = "src"}]
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
-python = ">=3.11,<3.12"  # --- Stricter Python version to match tree-sitter ---
-typer = "^0.12.3"
-google-generativeai = "^0.5.4"
+python = ">=3.11,<3.12"
+flask = "^3.0.3"
+google-generativeai = "^0.7.1"
 python-dotenv = "^1.0.1"
-pydantic = "^2.7.4"
-# --- Exact versions known to be compatible ---
+pydantic = "^2.8.2"
+# --- Pinning versions for compatibility with Python 3.11 ---
 tree-sitter = "0.21.0"
 tree-sitter-languages = "1.9.1"
-chromadb = "^0.5.0"
+chromadb = "^0.5.3"
 sentence-transformers = "^3.0.1"
+typer = {extras = ["rich"], version = "^0.12.3"}
 networkx = "^3.3"
-streamlit = "^1.37.0"
-flask = "^3.0.3"
-# --- FIXED HERE: Added the missing dependency for session management ---
 Flask-Session = "^0.6.0"
-
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
 black = "^24.4.2"
-ruff = "^0.4.8"
+ruff = "^0.4.10"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-codex = "codex_veritas.cli:app"
+# --- Pytest Configuration ---
+[tool.pytest.ini_options]
+# Instructs pytest to only look for tests in the 'tests' directory.
+# This prevents it from trying to collect tests from our target_repo.
+testpaths = [
+    "tests",
+]
 
