@@ -26,8 +26,6 @@ wheels/
 MANIFEST
 
 # PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 
@@ -102,8 +100,19 @@ venv.bak/
 .idea/
 .vscode/
 
-# Codex Veritas specific
+# --- Codex Veritas Specific ---
+# Ignore all generated artifacts and temporary work directories
 /output/
 /code_db/
 /workspace/
 /target_repo/
+/semantic_db/
+/work_area/
+/reports/
+/flask_session/
+
+# Ignore generated artifacts AT THE ROOT LEVEL
+# This will ignore `code_graph.json` and `codebase_guide.md` at the top,
+# but NOT files with the same name in our source code.
+/*.json
+/*.md

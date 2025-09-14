@@ -1,40 +1,36 @@
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
 [tool.poetry]
 name = "codex-veritas"
 version = "0.1.0"
 description = "An AI software engineering platform built on the principle of Structural Honesty."
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
-packages = [{include = "src"}]
+packages = [{include = "codex", from = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
-flask = "^3.0.3"
-google-generativeai = "^0.7.1"
-python-dotenv = "^1.0.1"
-pydantic = "^2.8.2"
-# --- Pinning versions for compatibility with Python 3.11 ---
+typer = {extras = ["rich"], version = "^0.12.3"}
 tree-sitter = "0.21.0"
 tree-sitter-languages = "1.9.1"
-chromadb = "^0.5.3"
-sentence-transformers = "^3.0.1"
-typer = {extras = ["rich"], version = "^0.12.3"}
 networkx = "^3.3"
-Flask-Session = "^0.6.0"
+chromadb = "^0.5.4"
+sentence-transformers = "^3.0.1"
+# --- New Dependencies for Sprint 4 ---
+fastapi = "^0.111.1"
+uvicorn = {extras = ["standard"], version = "^0.30.3"}
+GitPython = "^3.1.43"
+# --- FIXED HERE: Corrected the package name ---
+markdown2 = "^2.4.13"
+
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.2.2"
+pytest = "^8.3.2"
 black = "^24.4.2"
-ruff = "^0.4.10"
+ruff = "^0.5.5"
 
-# --- Pytest Configuration ---
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.pytest.ini_options]
-# Instructs pytest to only look for tests in the 'tests' directory.
-# This prevents it from trying to collect tests from our target_repo.
-testpaths = [
-    "tests",
-]
-
+pythonpath = ["src"]
+testpaths = ["tests"]

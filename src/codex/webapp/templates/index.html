@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex Veritas - The Code Cartographer</title>
+    <!-- Link to our new, polished stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>
+            <!-- Integrate the new SVG logo -->
+            <img src="/static/logo.svg" alt="Codex Veritas Logo" height="40">
+        </h1>
+        <p>Horizon 1: The Code Cartographer</p>
+    </header>
+
+    <div id="main-content">
+        <form id="analyze-form">
+            <label for="git-url">Public GitHub Repository URL</label>
+            <input type="url" id="git-url" name="git_url" placeholder="https://github.com/pallets/flask" required>
+            <button type="submit" id="submit-button">Analyze Repository</button>
+        </form>
+
+        <div id="status-container">
+            <p><strong>Analysis Status:</strong></p>
+            <p id="status-message">Starting job...</p>
+        </div>
+
+        <div id="result-link">
+             <!-- The link will be injected here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Add a professional footer -->
+    <footer>
+        <p>Built with the principle of <a href="#">#StructuralHonesty</a></p>
+        <p><a href="#">GitHub</a> | <a href="#">Twitter</a> | <a href="#">Roadmap</a></p>
+    </footer>
+
+    <!-- The JavaScript logic remains the same -->
+    <script>
+        const form = document.getElementById('analyze-form');
+        const submitButton = document.getElementById('submit-button');
+        const urlInput = document.getElementById('git-url');
+        const statusContainer = document.getElementById('status-container');
+        const statusMessage = document.getElementById('status-message');
+        const resultLinkContainer = document.getElementById('result-link');
+
+        let pollingInterval;
+
+        async function pollStatus(jobId) {
+            try {
+                const response = await fetch(`/status/${jobId}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                statusMessage.textContent = data.step || 'Processing...';
+
+                if (data.status === 'complete') {
+                    clearInterval(pollingInterval);
+                    submitButton.disabled = false;
+                    statusMessage.textContent = "✅ Analysis Complete!";
+                    
+                    const reportLink = document.createElement('a');
+                    // --- UPDATED ---
+                    // The main web server now serves the new interactive report page
+                    reportLink.href = `/report/${jobId}`;
+                    reportLink.textContent = "View Interactive Report";
+                    reportLink.className = "report-link";
+                    
+                    resultLinkContainer.innerHTML = '';
+                    resultLinkContainer.appendChild(reportLink);
+                    resultLinkContainer.style.display = 'block';
+
+                } else if (data.status === 'failed') {
+                    clearInterval(pollingInterval);
+                    submitButton.disabled = false;
+                    statusMessage.textContent = `❌ Error: ${data.step}`;
+                }
+
+            } catch (error) {
+                console.error("Polling error:", error);
+                clearInterval(pollingInterval);
+                submitButton.disabled = false;
+                statusMessage.textContent = "❌ Could not get job status. Please check the server logs.";
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitButton.disabled = true;
+            statusContainer.style.display = 'block';
+            resultLinkContainer.style.display = 'none';
+            resultLinkContainer.innerHTML = '';
+            statusMessage.textContent = "Submitting job...";
+
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+            }
+
+            const gitUrl = urlInput.value;
+
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ git_url: gitUrl }),
+                });
+
+                if (!response.ok) {
+                   throw new Error(`Server error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const jobId = data.job_id;
+
+                statusMessage.textContent = "Job started. Waiting for progress...";
+                
+                pollingInterval = setInterval(() => pollStatus(jobId), 3000);
+
+            } catch (error) {
+                console.error("Submission error:", error);
+                statusMessage.textContent = `❌ Failed to start job: ${error.message}`;
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
+

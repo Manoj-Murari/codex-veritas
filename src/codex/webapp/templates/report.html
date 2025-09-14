@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex Veritas - Interactive Report</title>
+    <!-- Link to our new, polished stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>
+            <!-- Integrate the new SVG logo -->
+            <img src="/static/logo.svg" alt="Codex Veritas Logo" height="40">
+        </h1>
+        <!-- Add a link to go back to the main page -->
+        <p><a href="/">« Back to New Analysis</a></p>
+    </header>
+
+    <div id="main-content">
+        <!-- Section for the Architectural Summary -->
+        <section id="summary-section">
+            <h2>🏛️ Architectural Summary</h2>
+            <div id="summary-table-container">
+                <p>Loading summary...</p>
+            </div>
+        </section>
+
+        <!-- Section for the Key Components table -->
+        <section id="components-section">
+            <h2>🌟 Key Architectural Components</h2>
+            <p>The following components have been identified as the most central and influential based on their connections within the codebase. Click on any row to inspect its code and relationships.</p>
+            <div id="components-table-container">
+                <p>Loading key components...</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- The Modal for the Code Inspector -->
+    <div id="inspector-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="modal-body">
+                <!-- Content will be injected by JavaScript -->
+                <p>Loading details...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add a professional footer -->
+    <footer>
+        <p>Built with the principle of <a href="#">#StructuralHonesty</a></p>
+        <p><a href="#">GitHub</a> | <a href="#">Twitter</a> | <a href="#">Roadmap</a></p>
+    </footer>
+
+    <!-- The JavaScript logic remains the same -->
+    <script src="/static/main.js"></script>
+</body>
+</html>
+
