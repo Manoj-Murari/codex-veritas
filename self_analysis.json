@@ -1,0 +1,1674 @@
+{
+    "directed": true,
+    "multigraph": false,
+    "graph": {},
+    "nodes": [
+        {
+            "id": "src/codex/__init__.py",
+            "type": "File",
+            "name": "__init__.py",
+            "file_path": "src/codex/__init__.py",
+            "start_line": 1,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/cli/main.py",
+            "type": "File",
+            "name": "main.py",
+            "file_path": "src/codex/cli/main.py",
+            "start_line": 1,
+            "end_line": 175
+        },
+        {
+            "id": "src/codex/cli/main.py::index",
+            "type": "Function",
+            "name": "index",
+            "file_path": "src/codex/cli/main.py",
+            "start_line": 41,
+            "end_line": 77
+        },
+        {
+            "id": "src/codex/cli/main.py::semantic",
+            "type": "Function",
+            "name": "semantic",
+            "file_path": "src/codex/cli/main.py",
+            "start_line": 81,
+            "end_line": 99
+        },
+        {
+            "id": "src/codex/cli/main.py::explain",
+            "type": "Function",
+            "name": "explain",
+            "file_path": "src/codex/cli/main.py",
+            "start_line": 102,
+            "end_line": 129
+        },
+        {
+            "id": "src/codex/cli/main.py::report",
+            "type": "Function",
+            "name": "report",
+            "file_path": "src/codex/cli/main.py",
+            "start_line": 133,
+            "end_line": 169
+        },
+        {
+            "id": "import::Path",
+            "type": "Import",
+            "name": "Path",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Annotated",
+            "type": "Import",
+            "name": "Annotated",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::typer",
+            "type": "Import",
+            "name": "typer",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Console",
+            "type": "Import",
+            "name": "Console",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Panel",
+            "type": "Import",
+            "name": "Panel",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/cli/__init__.py",
+            "type": "File",
+            "name": "__init__.py",
+            "file_path": "src/codex/cli/__init__.py",
+            "start_line": 1,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/graph/core.py",
+            "type": "File",
+            "name": "core.py",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 1,
+            "end_line": 97
+        },
+        {
+            "id": "src/codex/graph/core.py::CodeGraph",
+            "type": "Class",
+            "name": "CodeGraph",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 21,
+            "end_line": 96
+        },
+        {
+            "id": "src/codex/graph/core.py::CodeGraph::__init__",
+            "type": "Method",
+            "name": "__init__",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 24,
+            "end_line": 26
+        },
+        {
+            "id": "src/codex/graph/core.py::CodeGraph::add_node",
+            "type": "Method",
+            "name": "add_node",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 28,
+            "end_line": 30
+        },
+        {
+            "id": "src/codex/graph/core.py::CodeGraph::add_edge",
+            "type": "Method",
+            "name": "add_edge",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 32,
+            "end_line": 38
+        },
+        {
+            "id": "src/codex/graph/core.py::CodeGraph::merge_components",
+            "type": "Method",
+            "name": "merge_components",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 40,
+            "end_line": 49
+        },
+        {
+            "id": "src/codex/graph/core.py::CodeGraph::get_callers",
+            "type": "Method",
+            "name": "get_callers",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 51,
+            "end_line": 56
+        },
+        {
+            "id": "src/codex/graph/core.py::CodeGraph::get_callees",
+            "type": "Method",
+            "name": "get_callees",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 58,
+            "end_line": 63
+        },
+        {
+            "id": "src/codex/graph/core.py::CodeGraph::serialize_to_json",
+            "type": "Method",
+            "name": "serialize_to_json",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 65,
+            "end_line": 86
+        },
+        {
+            "id": "src/codex/graph/core.py::CodeGraph::load_from_json",
+            "type": "Method",
+            "name": "load_from_json",
+            "file_path": "src/codex/graph/core.py",
+            "start_line": 88,
+            "end_line": 96
+        },
+        {
+            "id": "import::json",
+            "type": "Import",
+            "name": "json",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::List",
+            "type": "Import",
+            "name": "List",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Dict",
+            "type": "Import",
+            "name": "Dict",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Any",
+            "type": "Import",
+            "name": "Any",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::json_graph",
+            "type": "Import",
+            "name": "json_graph",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/graph/__init__.py",
+            "type": "File",
+            "name": "__init__.py",
+            "file_path": "src/codex/graph/__init__.py",
+            "start_line": 1,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/ingestion/main.py",
+            "type": "File",
+            "name": "main.py",
+            "file_path": "src/codex/ingestion/main.py",
+            "start_line": 1,
+            "end_line": 123
+        },
+        {
+            "id": "src/codex/ingestion/main.py::parse",
+            "type": "Function",
+            "name": "parse",
+            "file_path": "src/codex/ingestion/main.py",
+            "start_line": 39,
+            "end_line": 120
+        },
+        {
+            "id": "import::time",
+            "type": "Import",
+            "name": "time",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Progress",
+            "type": "Import",
+            "name": "Progress",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::SpinnerColumn",
+            "type": "Import",
+            "name": "SpinnerColumn",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::TextColumn",
+            "type": "Import",
+            "name": "TextColumn",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::BarColumn",
+            "type": "Import",
+            "name": "BarColumn",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::TimeElapsedColumn",
+            "type": "Import",
+            "name": "TimeElapsedColumn",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/ingestion/parser.py",
+            "type": "File",
+            "name": "parser.py",
+            "file_path": "src/codex/ingestion/parser.py",
+            "start_line": 1,
+            "end_line": 172
+        },
+        {
+            "id": "src/codex/ingestion/parser.py::_get_node_text",
+            "type": "Function",
+            "name": "_get_node_text",
+            "file_path": "src/codex/ingestion/parser.py",
+            "start_line": 36,
+            "end_line": 38
+        },
+        {
+            "id": "src/codex/ingestion/parser.py::_create_unique_id",
+            "type": "Function",
+            "name": "_create_unique_id",
+            "file_path": "src/codex/ingestion/parser.py",
+            "start_line": 40,
+            "end_line": 42
+        },
+        {
+            "id": "src/codex/ingestion/parser.py::_get_node_ancestors",
+            "type": "Function",
+            "name": "_get_node_ancestors",
+            "file_path": "src/codex/ingestion/parser.py",
+            "start_line": 44,
+            "end_line": 49
+        },
+        {
+            "id": "src/codex/ingestion/parser.py::parse_file_to_graph_components",
+            "type": "Function",
+            "name": "parse_file_to_graph_components",
+            "file_path": "src/codex/ingestion/parser.py",
+            "start_line": 53,
+            "end_line": 170
+        },
+        {
+            "id": "import::logging",
+            "type": "Import",
+            "name": "logging",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Tuple",
+            "type": "Import",
+            "name": "Tuple",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Parser",
+            "type": "Import",
+            "name": "Parser",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::get_language",
+            "type": "Import",
+            "name": "get_language",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/ingestion/__init__.py",
+            "type": "File",
+            "name": "__init__.py",
+            "file_path": "src/codex/ingestion/__init__.py",
+            "start_line": 1,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/query/engine.py",
+            "type": "File",
+            "name": "engine.py",
+            "file_path": "src/codex/query/engine.py",
+            "start_line": 1,
+            "end_line": 164
+        },
+        {
+            "id": "src/codex/query/engine.py::QueryEngine",
+            "type": "Class",
+            "name": "QueryEngine",
+            "file_path": "src/codex/query/engine.py",
+            "start_line": 30,
+            "end_line": 163
+        },
+        {
+            "id": "src/codex/query/engine.py::QueryEngine::__init__",
+            "type": "Method",
+            "name": "__init__",
+            "file_path": "src/codex/query/engine.py",
+            "start_line": 33,
+            "end_line": 61
+        },
+        {
+            "id": "src/codex/query/engine.py::QueryEngine::query_semantic",
+            "type": "Method",
+            "name": "query_semantic",
+            "file_path": "src/codex/query/engine.py",
+            "start_line": 63,
+            "end_line": 79
+        },
+        {
+            "id": "src/codex/query/engine.py::QueryEngine::_query_structural",
+            "type": "Method",
+            "name": "_query_structural",
+            "file_path": "src/codex/query/engine.py",
+            "start_line": 81,
+            "end_line": 96
+        },
+        {
+            "id": "src/codex/query/engine.py::QueryEngine::display_semantic_results",
+            "type": "Method",
+            "name": "display_semantic_results",
+            "file_path": "src/codex/query/engine.py",
+            "start_line": 98,
+            "end_line": 118
+        },
+        {
+            "id": "src/codex/query/engine.py::QueryEngine::_display_structural_table",
+            "type": "Method",
+            "name": "_display_structural_table",
+            "file_path": "src/codex/query/engine.py",
+            "start_line": 120,
+            "end_line": 139
+        },
+        {
+            "id": "src/codex/query/engine.py::QueryEngine::explain_concept",
+            "type": "Method",
+            "name": "explain_concept",
+            "file_path": "src/codex/query/engine.py",
+            "start_line": 141,
+            "end_line": 163
+        },
+        {
+            "id": "import::chromadb",
+            "type": "Import",
+            "name": "chromadb",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::embedding_functions",
+            "type": "Import",
+            "name": "embedding_functions",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Syntax",
+            "type": "Import",
+            "name": "Syntax",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Table",
+            "type": "Import",
+            "name": "Table",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/query/__init__.py",
+            "type": "File",
+            "name": "__init__.py",
+            "file_path": "src/codex/query/__init__.py",
+            "start_line": 1,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/report/generator.py",
+            "type": "File",
+            "name": "generator.py",
+            "file_path": "src/codex/report/generator.py",
+            "start_line": 1,
+            "end_line": 119
+        },
+        {
+            "id": "src/codex/report/generator.py::_format_node_for_table",
+            "type": "Function",
+            "name": "_format_node_for_table",
+            "file_path": "src/codex/report/generator.py",
+            "start_line": 31,
+            "end_line": 49
+        },
+        {
+            "id": "src/codex/report/generator.py::generate_report",
+            "type": "Function",
+            "name": "generate_report",
+            "file_path": "src/codex/report/generator.py",
+            "start_line": 53,
+            "end_line": 119
+        },
+        {
+            "id": "src/codex/report/ranking.py",
+            "type": "File",
+            "name": "ranking.py",
+            "file_path": "src/codex/report/ranking.py",
+            "start_line": 1,
+            "end_line": 71
+        },
+        {
+            "id": "src/codex/report/ranking.py::rank_nodes_by_centrality",
+            "type": "Function",
+            "name": "rank_nodes_by_centrality",
+            "file_path": "src/codex/report/ranking.py",
+            "start_line": 24,
+            "end_line": 70
+        },
+        {
+            "id": "src/codex/report/__init__.py",
+            "type": "File",
+            "name": "__init__.py",
+            "file_path": "src/codex/report/__init__.py",
+            "start_line": 1,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/semantic/indexer.py",
+            "type": "File",
+            "name": "indexer.py",
+            "file_path": "src/codex/semantic/indexer.py",
+            "start_line": 1,
+            "end_line": 134
+        },
+        {
+            "id": "src/codex/semantic/indexer.py::_prepare_code_chunks_from_graph",
+            "type": "Function",
+            "name": "_prepare_code_chunks_from_graph",
+            "file_path": "src/codex/semantic/indexer.py",
+            "start_line": 31,
+            "end_line": 66
+        },
+        {
+            "id": "src/codex/semantic/indexer.py::build_semantic_layer",
+            "type": "Function",
+            "name": "build_semantic_layer",
+            "file_path": "src/codex/semantic/indexer.py",
+            "start_line": 69,
+            "end_line": 133
+        },
+        {
+            "id": "import::shutil",
+            "type": "Import",
+            "name": "shutil",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/semantic/__init__.py",
+            "type": "File",
+            "name": "__init__.py",
+            "file_path": "src/codex/semantic/__init__.py",
+            "start_line": 1,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/webapp/api.py",
+            "type": "File",
+            "name": "api.py",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 1,
+            "end_line": 140
+        },
+        {
+            "id": "src/codex/webapp/api.py::Node",
+            "type": "Class",
+            "name": "Node",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 41,
+            "end_line": 48
+        },
+        {
+            "id": "src/codex/webapp/api.py::ReportSummary",
+            "type": "Class",
+            "name": "ReportSummary",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 50,
+            "end_line": 53
+        },
+        {
+            "id": "src/codex/webapp/api.py::ReportData",
+            "type": "Class",
+            "name": "ReportData",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 55,
+            "end_line": 57
+        },
+        {
+            "id": "src/codex/webapp/api.py::NodeDetail",
+            "type": "Class",
+            "name": "NodeDetail",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 59,
+            "end_line": 60
+        },
+        {
+            "id": "src/codex/webapp/api.py::NodeRelations",
+            "type": "Class",
+            "name": "NodeRelations",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 62,
+            "end_line": 64
+        },
+        {
+            "id": "src/codex/webapp/api.py::_get_graph_for_job",
+            "type": "Function",
+            "name": "_get_graph_for_job",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 68,
+            "end_line": 77
+        },
+        {
+            "id": "src/codex/webapp/api.py::get_report_data",
+            "type": "Function",
+            "name": "get_report_data",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 82,
+            "end_line": 97
+        },
+        {
+            "id": "src/codex/webapp/api.py::get_node_details",
+            "type": "Function",
+            "name": "get_node_details",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 100,
+            "end_line": 125
+        },
+        {
+            "id": "src/codex/webapp/api.py::get_node_relations",
+            "type": "Function",
+            "name": "get_node_relations",
+            "file_path": "src/codex/webapp/api.py",
+            "start_line": 129,
+            "end_line": 139
+        },
+        {
+            "id": "import::APIRouter",
+            "type": "Import",
+            "name": "APIRouter",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::HTTPException",
+            "type": "Import",
+            "name": "HTTPException",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::BaseModel",
+            "type": "Import",
+            "name": "BaseModel",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/webapp/main.py",
+            "type": "File",
+            "name": "main.py",
+            "file_path": "src/codex/webapp/main.py",
+            "start_line": 1,
+            "end_line": 90
+        },
+        {
+            "id": "src/codex/webapp/main.py::read_root",
+            "type": "Function",
+            "name": "read_root",
+            "file_path": "src/codex/webapp/main.py",
+            "start_line": 49,
+            "end_line": 51
+        },
+        {
+            "id": "src/codex/webapp/main.py::get_report_page",
+            "type": "Function",
+            "name": "get_report_page",
+            "file_path": "src/codex/webapp/main.py",
+            "start_line": 55,
+            "end_line": 61
+        },
+        {
+            "id": "src/codex/webapp/main.py::start_analysis",
+            "type": "Function",
+            "name": "start_analysis",
+            "file_path": "src/codex/webapp/main.py",
+            "start_line": 67,
+            "end_line": 79
+        },
+        {
+            "id": "src/codex/webapp/main.py::get_status",
+            "type": "Function",
+            "name": "get_status",
+            "file_path": "src/codex/webapp/main.py",
+            "start_line": 82,
+            "end_line": 89
+        },
+        {
+            "id": "import::uuid",
+            "type": "Import",
+            "name": "uuid",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::FastAPI",
+            "type": "Import",
+            "name": "FastAPI",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::BackgroundTasks",
+            "type": "Import",
+            "name": "BackgroundTasks",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Request",
+            "type": "Import",
+            "name": "Request",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::HTMLResponse",
+            "type": "Import",
+            "name": "HTMLResponse",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::JSONResponse",
+            "type": "Import",
+            "name": "JSONResponse",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::StaticFiles",
+            "type": "Import",
+            "name": "StaticFiles",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Jinja2Templates",
+            "type": "Import",
+            "name": "Jinja2Templates",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::markdown2",
+            "type": "Import",
+            "name": "markdown2",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/webapp/worker.py",
+            "type": "File",
+            "name": "worker.py",
+            "file_path": "src/codex/webapp/worker.py",
+            "start_line": 1,
+            "end_line": 101
+        },
+        {
+            "id": "src/codex/webapp/worker.py::_on_rm_error",
+            "type": "Function",
+            "name": "_on_rm_error",
+            "file_path": "src/codex/webapp/worker.py",
+            "start_line": 44,
+            "end_line": 51
+        },
+        {
+            "id": "src/codex/webapp/worker.py::run_full_pipeline",
+            "type": "Function",
+            "name": "run_full_pipeline",
+            "file_path": "src/codex/webapp/worker.py",
+            "start_line": 54,
+            "end_line": 100
+        },
+        {
+            "id": "import::stat",
+            "type": "Import",
+            "name": "stat",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::os",
+            "type": "Import",
+            "name": "os",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Repo",
+            "type": "Import",
+            "name": "Repo",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "tests/test_graph.py",
+            "type": "File",
+            "name": "test_graph.py",
+            "file_path": "tests/test_graph.py",
+            "start_line": 1,
+            "end_line": 123
+        },
+        {
+            "id": "tests/test_graph.py::empty_graph",
+            "type": "Function",
+            "name": "empty_graph",
+            "file_path": "tests/test_graph.py",
+            "start_line": 26,
+            "end_line": 28
+        },
+        {
+            "id": "tests/test_graph.py::sample_graph",
+            "type": "Function",
+            "name": "sample_graph",
+            "file_path": "tests/test_graph.py",
+            "start_line": 31,
+            "end_line": 45
+        },
+        {
+            "id": "tests/test_graph.py::test_add_node",
+            "type": "Function",
+            "name": "test_add_node",
+            "file_path": "tests/test_graph.py",
+            "start_line": 49,
+            "end_line": 55
+        },
+        {
+            "id": "tests/test_graph.py::test_add_edge",
+            "type": "Function",
+            "name": "test_add_edge",
+            "file_path": "tests/test_graph.py",
+            "start_line": 57,
+            "end_line": 64
+        },
+        {
+            "id": "tests/test_graph.py::test_add_edge_raises_error_for_missing_node",
+            "type": "Function",
+            "name": "test_add_edge_raises_error_for_missing_node",
+            "file_path": "tests/test_graph.py",
+            "start_line": 66,
+            "end_line": 70
+        },
+        {
+            "id": "tests/test_graph.py::test_merge_components",
+            "type": "Function",
+            "name": "test_merge_components",
+            "file_path": "tests/test_graph.py",
+            "start_line": 72,
+            "end_line": 80
+        },
+        {
+            "id": "tests/test_graph.py::test_get_callers",
+            "type": "Function",
+            "name": "test_get_callers",
+            "file_path": "tests/test_graph.py",
+            "start_line": 82,
+            "end_line": 89
+        },
+        {
+            "id": "tests/test_graph.py::test_get_callees",
+            "type": "Function",
+            "name": "test_get_callees",
+            "file_path": "tests/test_graph.py",
+            "start_line": 91,
+            "end_line": 98
+        },
+        {
+            "id": "tests/test_graph.py::test_get_callers_for_node_with_no_callers",
+            "type": "Function",
+            "name": "test_get_callers_for_node_with_no_callers",
+            "file_path": "tests/test_graph.py",
+            "start_line": 100,
+            "end_line": 103
+        },
+        {
+            "id": "tests/test_graph.py::test_serialization_deserialization",
+            "type": "Function",
+            "name": "test_serialization_deserialization",
+            "file_path": "tests/test_graph.py",
+            "start_line": 105,
+            "end_line": 123
+        },
+        {
+            "id": "import::pytest",
+            "type": "Import",
+            "name": "pytest",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::CodeGraph",
+            "type": "Import",
+            "name": "CodeGraph",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "tests/test_placeholder.py",
+            "type": "File",
+            "name": "test_placeholder.py",
+            "file_path": "tests/test_placeholder.py",
+            "start_line": 1,
+            "end_line": 18
+        },
+        {
+            "id": "tests/test_placeholder.py::test_always_passes",
+            "type": "Function",
+            "name": "test_always_passes",
+            "file_path": "tests/test_placeholder.py",
+            "start_line": 8,
+            "end_line": 12
+        },
+        {
+            "id": "tests/test_placeholder.py::test_addition",
+            "type": "Function",
+            "name": "test_addition",
+            "file_path": "tests/test_placeholder.py",
+            "start_line": 14,
+            "end_line": 18
+        },
+        {
+            "id": "tests/__init__.py",
+            "type": "File",
+            "name": "__init__.py",
+            "file_path": "tests/__init__.py",
+            "start_line": 1,
+            "end_line": 0
+        }
+    ],
+    "links": [
+        {
+            "source": "src/codex/cli/main.py",
+            "target": "src/codex/cli/main.py::index",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/cli/main.py",
+            "target": "src/codex/cli/main.py::semantic",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/cli/main.py",
+            "target": "src/codex/cli/main.py::explain",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/cli/main.py",
+            "target": "src/codex/cli/main.py::report",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/cli/main.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/cli/main.py",
+            "target": "import::Annotated",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/cli/main.py",
+            "target": "import::typer",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/cli/main.py",
+            "target": "import::Console",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/cli/main.py",
+            "target": "import::Panel",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/graph/core.py",
+            "target": "src/codex/graph/core.py::CodeGraph",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/graph/core.py",
+            "target": "import::json",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/graph/core.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/graph/core.py",
+            "target": "import::List",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/graph/core.py",
+            "target": "import::Dict",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/graph/core.py",
+            "target": "import::Any",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/graph/core.py",
+            "target": "import::json_graph",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/graph/core.py::CodeGraph",
+            "target": "src/codex/graph/core.py::CodeGraph::__init__",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/graph/core.py::CodeGraph",
+            "target": "src/codex/graph/core.py::CodeGraph::add_node",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/graph/core.py::CodeGraph",
+            "target": "src/codex/graph/core.py::CodeGraph::add_edge",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/graph/core.py::CodeGraph",
+            "target": "src/codex/graph/core.py::CodeGraph::merge_components",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/graph/core.py::CodeGraph",
+            "target": "src/codex/graph/core.py::CodeGraph::get_callers",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/graph/core.py::CodeGraph",
+            "target": "src/codex/graph/core.py::CodeGraph::get_callees",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/graph/core.py::CodeGraph",
+            "target": "src/codex/graph/core.py::CodeGraph::serialize_to_json",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/graph/core.py::CodeGraph",
+            "target": "src/codex/graph/core.py::CodeGraph::load_from_json",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "src/codex/ingestion/main.py::parse",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "import::time",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "import::Annotated",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "import::typer",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "import::Progress",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "import::SpinnerColumn",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "import::TextColumn",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "import::BarColumn",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/main.py",
+            "target": "import::TimeElapsedColumn",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "src/codex/ingestion/parser.py::_get_node_text",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "src/codex/ingestion/parser.py::_create_unique_id",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "src/codex/ingestion/parser.py::_get_node_ancestors",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "src/codex/ingestion/parser.py::parse_file_to_graph_components",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "import::logging",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "import::List",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "import::Dict",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "import::Any",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "import::Tuple",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "import::Parser",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
+            "target": "import::get_language",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "src/codex/query/engine.py::QueryEngine",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::List",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::Dict",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::Any",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::chromadb",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::embedding_functions",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::Console",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::Panel",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::Syntax",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::Table",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py::QueryEngine",
+            "target": "src/codex/query/engine.py::QueryEngine::__init__",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/query/engine.py::QueryEngine",
+            "target": "src/codex/query/engine.py::QueryEngine::query_semantic",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/query/engine.py::QueryEngine",
+            "target": "src/codex/query/engine.py::QueryEngine::_query_structural",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/query/engine.py::QueryEngine",
+            "target": "src/codex/query/engine.py::QueryEngine::display_semantic_results",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/query/engine.py::QueryEngine",
+            "target": "src/codex/query/engine.py::QueryEngine::_display_structural_table",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/query/engine.py::QueryEngine",
+            "target": "src/codex/query/engine.py::QueryEngine::explain_concept",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/report/generator.py",
+            "target": "src/codex/report/generator.py::_format_node_for_table",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/report/generator.py",
+            "target": "src/codex/report/generator.py::generate_report",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/report/generator.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/report/generator.py",
+            "target": "import::List",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/report/generator.py",
+            "target": "import::Dict",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/report/generator.py",
+            "target": "import::Any",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/report/generator.py",
+            "target": "import::Console",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/report/generator.py",
+            "target": "import::Table",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/report/ranking.py",
+            "target": "src/codex/report/ranking.py::rank_nodes_by_centrality",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/report/ranking.py",
+            "target": "import::List",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/report/ranking.py",
+            "target": "import::Dict",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/report/ranking.py",
+            "target": "import::Any",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "src/codex/semantic/indexer.py::_prepare_code_chunks_from_graph",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "src/codex/semantic/indexer.py::build_semantic_layer",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::shutil",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::json",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::List",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::Dict",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::Any",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::chromadb",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::embedding_functions",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::Progress",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::BarColumn",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::TextColumn",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/semantic/indexer.py",
+            "target": "import::TimeElapsedColumn",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "src/codex/webapp/api.py::Node",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "src/codex/webapp/api.py::ReportSummary",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "src/codex/webapp/api.py::ReportData",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "src/codex/webapp/api.py::NodeDetail",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "src/codex/webapp/api.py::NodeRelations",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "src/codex/webapp/api.py::_get_graph_for_job",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "src/codex/webapp/api.py::get_report_data",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "src/codex/webapp/api.py::get_node_details",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "src/codex/webapp/api.py::get_node_relations",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "import::List",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "import::APIRouter",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "import::HTTPException",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/api.py",
+            "target": "import::BaseModel",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "src/codex/webapp/main.py::read_root",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "src/codex/webapp/main.py::get_report_page",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "src/codex/webapp/main.py::start_analysis",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "src/codex/webapp/main.py::get_status",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::uuid",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::FastAPI",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::BackgroundTasks",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::HTTPException",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::Request",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::HTMLResponse",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::JSONResponse",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::StaticFiles",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::Jinja2Templates",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/main.py",
+            "target": "import::markdown2",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/worker.py",
+            "target": "src/codex/webapp/worker.py::_on_rm_error",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/worker.py",
+            "target": "src/codex/webapp/worker.py::run_full_pipeline",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/webapp/worker.py",
+            "target": "import::shutil",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/worker.py",
+            "target": "import::uuid",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/worker.py",
+            "target": "import::stat",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/worker.py",
+            "target": "import::os",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/worker.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/webapp/worker.py",
+            "target": "import::Repo",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::empty_graph",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::sample_graph",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::test_add_node",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::test_add_edge",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::test_add_edge_raises_error_for_missing_node",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::test_merge_components",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::test_get_callers",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::test_get_callees",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::test_get_callers_for_node_with_no_callers",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "tests/test_graph.py::test_serialization_deserialization",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "import::pytest",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "tests/test_graph.py",
+            "target": "import::CodeGraph",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "tests/test_placeholder.py",
+            "target": "tests/test_placeholder.py::test_always_passes",
+            "type": "DEFINES"
+        },
+        {
+            "source": "tests/test_placeholder.py",
+            "target": "tests/test_placeholder.py::test_addition",
+            "type": "DEFINES"
+        }
+    ]
+}
