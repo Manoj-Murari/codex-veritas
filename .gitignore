@@ -61,9 +61,8 @@ venv.bak/
 .vscode/
 
 # --- Codex Veritas Specific ---
-# Ignore all generated artifacts and temporary work directories
-# The names are now listed without leading slashes to ignore them
-# in any subdirectory, which is more robust.
+# Ignore all generated artifacts and temporary work directories.
+# The trailing slash ensures we only ignore directories.
 output/
 code_db/
 workspace/
@@ -73,8 +72,7 @@ work_area/
 reports/
 flask_session/
 
-# Ignore specific generated files by name
-code_graph.json
-codebase_guide.md
-LAUNCH_ANNOUNCEMENTS.md
-sprint*.md
+# Ignore specific generated files by name at the root level.
+# This is safer than a wildcard.
+/code_graph.json
+/codebase_guide.md
