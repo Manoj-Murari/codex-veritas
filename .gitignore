@@ -47,46 +47,6 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# PEP 582; __pypackages__
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
 # Environments
 .env
 .venv
@@ -102,17 +62,19 @@ venv.bak/
 
 # --- Codex Veritas Specific ---
 # Ignore all generated artifacts and temporary work directories
-/output/
-/code_db/
-/workspace/
-/target_repo/
-/semantic_db/
-/work_area/
-/reports/
-/flask_session/
+# The names are now listed without leading slashes to ignore them
+# in any subdirectory, which is more robust.
+output/
+code_db/
+workspace/
+target_repo/
+semantic_db/
+work_area/
+reports/
+flask_session/
 
-# Ignore generated artifacts AT THE ROOT LEVEL
-# This will ignore `code_graph.json` and `codebase_guide.md` at the top,
-# but NOT files with the same name in our source code.
-/*.json
-/*.md
+# Ignore specific generated files by name
+code_graph.json
+codebase_guide.md
+LAUNCH_ANNOUNCEMENTS.md
+sprint*.md
