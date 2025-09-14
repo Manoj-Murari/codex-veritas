@@ -61,26 +61,27 @@ def parse(
     typer.secho(f"🚀 Starting ingestion process for repository: {repo_path}", fg=typer.colors.CYAN)
 
     typer.echo("    - Discovering Python files...")
-    python_files = list(repo_path.rglob("*.py"))
+    all_python_files = list(repo_path.rglob("*.py"))
     
-    # --- FIXED HERE: A much more robust exclusion list ---
-    # This prevents the parser from analyzing files in virtual environments,
-    # Git history, or any of our own temporary work directories.
-    EXCLUDE_DIRS = {
-        ".venv", "venv", ".git", "__pycache__",
-        "work_area", "reports", "semantic_db", "target_repo"
-    }
+    # --- FIXED HERE: A much more robust exclusion logic ---
+    # This now checks if a file's RELATIVE path starts with a banned directory name.
+    # This prevents it from incorrectly excluding files when our project is cloned
+    # into a folder that has a banned name in its absolute path (like 'work_area').
+    EXCLUDE_DIRS = (
+        ".venv/", "venv/", ".git/", "__pycache__/",
+        "work_area/", "reports/", "semantic_db/", "target_repo/"
+    )
     
-    filtered_files = []
-    for f in python_files:
-        if not any(part in EXCLUDE_DIRS for part in f.parts):
-            filtered_files.append(f)
-    
-    python_files = filtered_files
-    
+    python_files = []
+    for f in all_python_files:
+        relative_path_str = str(f.relative_to(repo_path))
+        if not relative_path_str.startswith(EXCLUDE_DIRS):
+            python_files.append(f)
+
     if not python_files:
         typer.secho("⚠️ No Python files found in the specified directory.", fg=typer.colors.YELLOW)
-        raise typer.Exit()
+        # We raise an exception here so the web worker can catch it and report a failure.
+        raise typer.Exit(code=1)
         
     typer.secho(f"    - Found {len(python_files)} Python files to process.", fg=typer.colors.GREEN)
 
@@ -121,3 +122,4 @@ def parse(
 
 if __name__ == "__main__":
     app()
+
