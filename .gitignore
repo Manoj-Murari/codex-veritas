@@ -76,3 +76,6 @@ flask_session/
 # This is safer than a wildcard.
 /code_graph.json
 /codebase_guide.md
+
+# Agent Task Memory
+tasks/
