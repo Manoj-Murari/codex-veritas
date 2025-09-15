@@ -1,10 +1,11 @@
 """
-The Mission Control Orchestrator.
+The Mission Control Script: The Orchestrator.
 
-This module is the high-level entry point for launching the agent on autonomous
-missions. It connects the agent's capabilities to real-world triggers, like
-a GitHub issue, and manages the end-to-end execution workflow.
+This module provides the high-level functions that connect the agent's
+autonomous capabilities to real-world command-line workflows. It is the
+bridge between the user's intent and the agent's execution loop.
 """
+
 import re
 import shutil
 from pathlib import Path
@@ -13,18 +14,13 @@ from rich.console import Console
 from rich.panel import Panel
 
 # --- Local Imports ---
+from .agent import github_tools
 from .agent.core import Agent
 from .agent.task import Task
-from .agent.memory import save_task, load_task
-from .agent.github_tools import get_issue_details, post_comment_on_issue
-# --- Removed the faulty import ---
+from .agent.tools import WORKSPACE_PATH, write_file
 
-# --- Configuration ---
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-WORKSPACE_PATH = PROJECT_ROOT / "workspace"
-CONSOLE = Console()
 
-# --- NEW: Self-Contained Dummy Engine ---
+# --- A "Dummy" Engine for Simple, Non-Code-Aware Tasks ---
 class DummyQueryEngine:
     """A placeholder query engine for when no analysis files are provided."""
 
@@ -37,85 +33,95 @@ class DummyQueryEngine:
         return "Error: Cannot perform structural query. No code graph was provided."
 
 
-# --- Helper Functions ---
+# --- Main Mission Execution Functions ---
 
-def _setup_mission(issue_url: str) -> tuple[str, int, str]:
-    """Parses issue URL and fetches mission details."""
+# --- CORRECTED: Added 'persona' argument ---
+def execute_mission(issue_url: str, persona: str = "default"):
+    """
+    The primary, general-purpose mission orchestrator.
+    """
+    console = Console()
+    console.print(Panel("[bold green]🚀 Initializing General Purpose Mission[/bold green]"))
+
+    # 1. Parse Issue URL
     match = re.search(r"github\.com/([\w.-]+/[\w.-]+)/issues/(\d+)", issue_url)
     if not match:
-        raise ValueError("Invalid GitHub issue URL format.")
+        console.print("[bold red]Error:[/bold red] Invalid GitHub issue URL format.")
+        return
+
+    repo_name, issue_number_str = match.groups()
+    issue_number = int(issue_number_str)
+    console.print(f"  - Repository: {repo_name}\n  - Issue #:    {issue_number}")
+
+    # 2. Fetch Mission from GitHub
+    mission_prompt = github_tools.get_issue_details(repo_name, issue_number)
+    if mission_prompt.startswith("Error"):
+        console.print(f"[bold red]Error fetching mission:[/bold red] {mission_prompt}")
+        return
+        
+    # --- This mission requires the agent's own source code ---
+    try:
+        if WORKSPACE_PATH.exists():
+            shutil.rmtree(WORKSPACE_PATH)
+        # Copy the entire 'src' directory into the workspace
+        shutil.copytree(Path("src"), WORKSPACE_PATH / "src")
+        console.print(f"  - ✅ Workspace populated with project source code.")
+    except Exception as e:
+        console.print(f"[bold red]Error setting up workspace:[/bold red] {e}")
+        return
+
+    # 3. Initialize Agent & Task
+    agent = Agent(query_engine=DummyQueryEngine())
+    task = Task(goal=mission_prompt, next_input=mission_prompt)
+
+    # 4. Launch Autonomous Loop
+    console.print(Panel(f"[bold green]🤖 Agent execution started with '{persona}' persona...[/bold green]"))
+    final_task = agent.mission_loop(task, persona=persona)
+
+    # 5. Report Outcome
+    console.print(Panel(f"[bold green]✅ Mission Complete[/bold green]"))
+    console.print(f"  - Final Status: {final_task.status}")
+    console.print(f"  - Final Answer: {final_task.final_answer}")
+
+
+def create_new_feature_from_issue(issue_url: str):
+    """
+    The specialized mission orchestrator for creating new features.
+    """
+    console = Console()
+    console.print(Panel("[bold yellow]Fetching Mission Details[/bold yellow]"))
+
+    match = re.search(r"github\.com/([\w.-]+/[\w.-]+)/issues/(\d+)", issue_url)
+    if not match:
+        console.print("[bold red]Error:[/bold red] Invalid GitHub issue URL format.")
+        return
 
     repo_name, issue_number_str = match.groups()
     issue_number = int(issue_number_str)
 
-    CONSOLE.print(Panel(f"[bold blue]Fetching Mission Details[/bold blue]"))
-    CONSOLE.print(f"  - Repository: {repo_name}")
-    CONSOLE.print(f"  - Issue #:    {issue_number}")
+    console.print(f"  - Repository: {repo_name}\n  - Issue #:    {issue_number}")
 
-    mission_prompt = get_issue_details(repo_name, issue_number)
-    if mission_prompt.startswith("Error:"):
-        raise ConnectionError(f"Failed to fetch issue details: {mission_prompt}")
+    mission_prompt = github_tools.get_issue_details(repo_name, issue_number)
+    if mission_prompt.startswith("Error"):
+        console.print(f"[bold red]Error fetching mission:[/bold red] {mission_prompt}")
+        return
 
-    # Clean and prepare the workspace for a new mission
-    if WORKSPACE_PATH.exists():
-        shutil.rmtree(WORKSPACE_PATH)
-    WORKSPACE_PATH.mkdir(exist_ok=True)
-    CONSOLE.print(f"  - ✅ Workspace cleaned and prepared at: {WORKSPACE_PATH}")
+    try:
+        if WORKSPACE_PATH.exists():
+            shutil.rmtree(WORKSPACE_PATH)
+        WORKSPACE_PATH.mkdir()
+        console.print(f"  - ✅ Workspace cleaned and prepared at: {WORKSPACE_PATH}")
+    except Exception as e:
+        console.print(f"[bold red]Error during workspace setup:[/bold red] {e}")
+        return
 
-    return repo_name, issue_number, mission_prompt
+    console.print(Panel("[bold yellow]🚀 Launching Feature Development Mission[/bold yellow]"))
+    agent = Agent(query_engine=DummyQueryEngine())
+    task = Task(goal=mission_prompt, next_input=mission_prompt)
+    final_task = agent.mission_loop(task, persona="feature_dev")
 
-# --- Primary Mission Execution Functions ---
-
-def execute_mission(issue_url: str):
-    """
-    Orchestrates a refactoring/debugging mission from a GitHub issue.
-    """
-    repo_name, issue_number, mission_prompt = _setup_mission(issue_url)
-
-    CONSOLE.print(Panel("[bold green]🚀 Launching Refactoring Mission[/bold green]"))
-    agent = Agent(DummyQueryEngine())
-    initial_task = Task(goal=mission_prompt, next_input=mission_prompt)
-    save_task(initial_task)
-
-    # Launch the agent with the 'refactor' persona
-    final_task = agent.mission_loop(initial_task, persona="refactor")
-
-    CONSOLE.print(Panel("[bold blue]📬 Reporting Mission Outcome[/bold blue]"))
-    final_report = (
-        f"**Mission Status: {final_task.status.upper()}**\n\n"
-        f"**Agent's Final Report:**\n"
-        f"```\n{final_task.final_answer}\n```"
-    )
-    result = post_comment_on_issue(repo_name, issue_number, final_report)
-    CONSOLE.print(f"  - {result}")
-
-def create_new_feature_from_issue(issue_url: str):
-    """
-    Orchestrates a new feature development mission from a GitHub issue.
-    """
-    repo_name, issue_number, mission_prompt = _setup_mission(issue_url)
-
-    CONSOLE.print(Panel("[bold yellow]🚀 Launching Feature Development Mission[/bold yellow]"))
-    agent = Agent(DummyQueryEngine())
-
-    # The goal includes instructions to use the new tool.
-    feature_goal = (
-        "Your mission is to create a new feature based on the following request.\n"
-        "You must use the `create_new_file` tool to write the new code.\n\n"
-        f"--- GitHub Issue ---\n{mission_prompt}"
-    )
-    initial_task = Task(goal=feature_goal, next_input=feature_goal)
-    save_task(initial_task)
-
-    # Launch the agent with the specialized 'feature_dev' persona
-    final_task = agent.mission_loop(initial_task, persona="feature_dev")
-
-    CONSOLE.print(Panel("[bold blue]📬 Reporting Mission Outcome[/bold blue]"))
-    final_report = (
-        f"**Mission Status: {final_task.status.upper()}**\n\n"
-        f"**Agent's Final Report:**\n"
-        f"```\n{final_task.final_answer}\n```"
-    )
-    result = post_comment_on_issue(repo_name, issue_number, final_report)
-    CONSOLE.print(f"  - {result}")
+    console.print(Panel("[bold yellow]📬 Reporting Mission Outcome[/bold yellow]"))
+    outcome_report = f"**Mission Status: {final_task.status}**\n\n**Agent's Final Report:**\n{final_task.final_answer}"
+    result = github_tools.post_comment_on_issue(repo_name, issue_number, outcome_report)
+    console.print(f"  - {result}")
 

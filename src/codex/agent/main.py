@@ -12,12 +12,13 @@ from typing_extensions import Annotated
 import typer
 from rich.console import Console
 from rich.panel import Panel
+import json
 
 # --- Local Imports ---
 from ..mission_control import execute_mission, create_new_feature_from_issue
 from .core import Agent
 from .task import Task
-from .tools import WORKSPACE_PATH, write_file
+from .tools import WORKSPACE_PATH, write_file, create_new_test_file
 
 # --- CLI Application Initialization ---
 app = typer.Typer(
@@ -55,7 +56,6 @@ def create_feature_command(
     create_new_feature_from_issue(issue_url=issue_url)
 
 
-# --- NEW: Command for Test Generation (Sprint 15) ---
 @app.command(
     name="generate-tests",
     help="Generate a new pytest test file for a given source file."
@@ -98,12 +98,7 @@ def generate_tests_command(
         "You must use the 'tester' persona and follow its workflow precisely."
     )
     
-    # The 'tester' persona doesn't need a real query engine, so we pass None
-    # which will cause mission_control logic (if we built it that way) or direct agent
-    # instantiation to use a DummyQueryEngine. For this direct CLI command, we can just
-    # instantiate the agent directly as it doesn't need mission_control's GitHub features.
     from .core import Agent
-    from ..query.engine import QueryEngine # Note: We need a dummy, let's handle this cleanly
     
     class DummyQueryEngine:
         pass
@@ -121,6 +116,161 @@ def generate_tests_command(
     console.print(f"  - Final Answer: {final_task.final_answer}")
     console.print(f"\n[cyan]You can find the generated test file in the '{WORKSPACE_PATH}/tests' directory.[/cyan]")
 
+@app.command(
+    name="run-tests",
+    help="Run the pytest suite in the workspace and have the agent report the results."
+)
+def run_tests_command():
+    """
+    Sets up a workspace with a deliberately failing test and runs the debugger agent.
+    """
+    console.print(Panel("[bold magenta]🚀 Initializing Debugger Mission[/bold magenta]"))
+
+    # 1. Define sample source, test, and config files
+    source_code = """
+# calculator.py
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    # This function has a deliberate bug
+    return a + b
+"""
+    test_code = """
+# test_calculator.py
+from calculator import add, subtract
+
+def test_add_positive():
+    assert add(2, 3) == 5
+
+def test_add_negative():
+    assert add(-1, -1) == -2
+
+def test_subtract_correct():
+    assert subtract(10, 5) == 5
+
+def test_subtract_bug():
+    # This test is designed to fail
+    assert subtract(5, 3) == 2
+"""
+    pytest_config = """
+# pyproject.toml
+[tool.pytest.ini_options]
+pythonpath = ["."]
+"""
+
+    try:
+        # 2. Prepare a clean workspace and create the files
+        if WORKSPACE_PATH.exists():
+            shutil.rmtree(WORKSPACE_PATH)
+        WORKSPACE_PATH.mkdir()
+        
+        write_file("calculator.py", source_code)
+        write_file("pyproject.toml", pytest_config)
+        
+        create_new_test_file("test_calculator.py", test_code)
+        
+        console.print("  - ✅ Workspace prepared with a failing test case and pytest config.")
+
+    except Exception as e:
+        console.print(f"[bold red]Error during workspace setup:[/bold red] {e}")
+        raise typer.Exit(code=1)
+
+    # 3. Formulate the mission
+    mission = "Your goal is to run the tests in the workspace and report a summary of the results. You must use the 'debugger' persona."
+    
+    from .core import Agent
+    
+    class DummyQueryEngine:
+        pass
+
+    agent = Agent(query_engine=DummyQueryEngine()) # type: ignore
+    task = Task(goal=mission, next_input=mission)
+    
+    # 4. Launch the agent's autonomous loop with the 'debugger' persona
+    console.print(Panel("[bold green]🤖 Agent execution started...[/bold green]"))
+    final_task = agent.mission_loop(task, persona="debugger")
+    
+    console.print(Panel(f"[bold green]✅ Mission Complete[/bold green]"))
+    console.print(f"  - Final Status: {final_task.status}")
+    
+    console.print("  - Final Answer:")
+    try:
+        parsed_answer = json.loads(final_task.final_answer)
+        console.print_json(data=parsed_answer)
+    except (json.JSONDecodeError, TypeError):
+        console.print(final_task.final_answer)
+
+# --- NEW: Command for TDD Bug Fixing (Sprint 17) ---
+@app.command(
+    name="fix-bug",
+    help="Run the TDD agent to write a failing test, fix a bug, and verify."
+)
+def fix_bug_command():
+    """
+    Sets up a workspace with buggy code and runs the TDD agent to fix it.
+    """
+    console.print(Panel("[bold blue]🚀 Initializing TDD Bug Fixing Mission[/bold blue]"))
+
+    # 1. Define buggy source code
+    buggy_code = """
+# user_profile.py
+
+def get_user_profile(user_id: int):
+    \"\"\"
+    Retrieves a user's profile from a database.
+    For this example, it returns a mock dictionary.
+    
+    The bug is that it does not include the 'email' field for all users.
+    \"\"\"
+    if user_id == 1:
+        return {"username": "testuser", "email": "test@example.com"}
+    else:
+        # This is the buggy part
+        return {"username": "otheruser"}
+"""
+    bug_report = (
+        "The function `get_user_profile` in `user_profile.py` is buggy. "
+        "It's supposed to always return a dictionary with an 'email' key, but it fails to do so for any user ID other than 1. "
+        "Your mission is to write a failing test that confirms this bug, then fix the code, and finally, run all tests to prove the fix works."
+    )
+
+    try:
+        # 2. Prepare a clean workspace and create the files
+        if WORKSPACE_PATH.exists():
+            shutil.rmtree(WORKSPACE_PATH)
+        WORKSPACE_PATH.mkdir()
+        
+        write_file("user_profile.py", buggy_code)
+        
+        # Add a pytest config to ensure imports work
+        pytest_config = "[tool.pytest.ini_options]\npythonpath = ['.']\n"
+        write_file("pyproject.toml", pytest_config)
+        
+        console.print("  - ✅ Workspace prepared with buggy source code.")
+
+    except Exception as e:
+        console.print(f"[bold red]Error during workspace setup:[/bold red] {e}")
+        raise typer.Exit(code=1)
+
+    # 3. Formulate the mission
+    mission = f"Your goal is to fix a bug, following a strict TDD workflow. Here is the bug report:\n\n{bug_report}"
+    
+    from .core import Agent
+    
+    class DummyQueryEngine:
+        pass
+
+    agent = Agent(query_engine=DummyQueryEngine()) # type: ignore
+    task = Task(goal=mission, next_input=mission)
+    
+    # 4. Launch the agent's autonomous loop with the 'tdd' persona
+    console.print(Panel("[bold green]🤖 Agent execution started...[/bold green]"))
+    final_task = agent.mission_loop(task, persona="tdd")
+    
+    console.print(Panel(f"[bold green]✅ Mission Complete[/bold green]"))
+    console.print(f"  - Final Status: {final_task.status}")
+    console.print(f"  - Final Answer: {final_task.final_answer}")
 
 if __name__ == "__main__":
     app()

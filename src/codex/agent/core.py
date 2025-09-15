@@ -181,7 +181,8 @@ class Agent:
             "read_file": getattr(agent_tools, "read_file", None),
             "write_file": getattr(agent_tools, "write_file", None),
             "create_new_file": getattr(agent_tools, "create_new_file", None),
-            "create_new_test_file": getattr(agent_tools, "create_new_test_file", None), # --- NEW ---
+            "create_new_test_file": getattr(agent_tools, "create_new_test_file", None),
+            "run_tests": getattr(agent_tools, "run_tests", None),
             "add_docstring_to_function": getattr(agent_tools, "add_docstring_to_function", None),
             "get_issue_details": getattr(github_tools, "get_issue_details", None),
             "post_comment_on_issue": getattr(github_tools, "post_comment_on_issue", None),
@@ -203,7 +204,9 @@ class Agent:
             "reviewer": self._build_reviewer_prompt(),
             "refactor": self._build_refactor_prompt(),
             "feature_dev": self._build_feature_dev_prompt(),
-            "tester": self._build_tester_prompt(), # --- NEW ---
+            "tester": self._build_tester_prompt(),
+            "debugger": self._build_debugger_prompt(),
+            "tdd": self._build_tdd_prompt(),
         }
 
     def _build_default_prompt(self) -> str:
@@ -248,7 +251,6 @@ class Agent:
             "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
         )
 
-    # --- NEW: Persona for Test Generation (Sprint 15) ---
     def _build_tester_prompt(self) -> str:
         """Persona prompt for generating new unit tests."""
         return (
@@ -262,6 +264,38 @@ class Agent:
             "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
             "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
         )
+
+    def _build_debugger_prompt(self) -> str:
+        """Persona prompt for running tests and interpreting the output."""
+        return (
+            "You are an expert AI Debugger. Your task is to run a test suite and interpret the results.\n\n"
+            "WORKFLOW:\n"
+            "1. **Execute:** Run the `run_tests` tool. This is your only first action.\n"
+            "2. **Analyze:** Scrutinize the text output from the tool.\n"
+            "3. **Conclude & Finish:** Use the `finish` tool. The `final_answer` argument for this tool MUST be a JSON string containing:\n"
+            "   - A `status` field: 'PASSED', 'FAILED', or 'ERROR'.\n"
+            "   - If FAILED or ERROR, an `error_summary` field with the names of failed tests and their specific error messages.\n\n"
+            "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
+            "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
+        )
+
+    # --- CORRECTED: Persona for TDD Bug Fixing (Sprint 17) ---
+    def _build_tdd_prompt(self) -> str:
+        """Persona prompt for fixing a bug using a strict TDD workflow."""
+        return (
+            "You are an expert AI Software Engineer specializing in Test-Driven Development (TDD).\n\n"
+            "WORKFLOW:\n"
+            "1. **Isolate Code:** First, use `read_file` to get the content of the source file containing the bug.\n"
+            "2. **Write Failing Test:** Based on the bug report and source code, generate a new pytest function that specifically triggers the bug. Use `create_new_test_file` to save this new test.\n"
+            "3. **Confirm Failure:** Use `run_tests`. You MUST analyze the output and confirm that the new test fails as expected. This is a critical step.\n"
+            "4. **Formulate Fix:** Read the source code file again. In your thought, formulate a precise plan to fix the code.\n"
+            "5. **Execute Fix:** Use `write_file` to overwrite the original source file with the corrected code.\n"
+            "6. **Confirm Fix:** Use `run_tests` one final time. You MUST analyze the output and confirm that all tests now pass.\n"
+            "7. **Finish:** Use the `finish` tool to report the successful end-to-end process. The `final_answer` argument should contain your summary.\n\n"
+            "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
+            "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
+        )
+
 
     def step(self, task: Task, persona: str = "default") -> Task:
         """
@@ -380,3 +414,4 @@ class Agent:
         print(f"    - Final Answer: {getattr(task, 'final_answer', '<none>')}")
 
         return task
+

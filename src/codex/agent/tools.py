@@ -8,6 +8,7 @@ on-the-fly, structurally-aware code modifications.
 
 import os
 import json
+import subprocess
 from pathlib import Path
 from typing import Dict, Any
 
@@ -76,7 +77,6 @@ def create_new_file(relative_file_path: str, content: str) -> str:
     except Exception as e:
         return f"Error: An unexpected error occurred while creating file '{relative_file_path}': {e}"
 
-# --- NEW: Sandboxed Tool for Test Creation (Sprint 15) ---
 def create_new_test_file(relative_file_path: str, content: str) -> str:
     """
     Creates a new test file in the 'tests/' subdirectory of the workspace.
@@ -88,28 +88,54 @@ def create_new_test_file(relative_file_path: str, content: str) -> str:
     """
     try:
         tests_dir = (WORKSPACE_PATH / "tests").resolve()
-        tests_dir.mkdir(exist_ok=True) # Ensure the tests directory exists
+        tests_dir.mkdir(exist_ok=True)
 
-        # Sanitize the relative path to prevent directory traversal
         if ".." in Path(relative_file_path).parts:
              return "Error: Path traversal ('..') is not allowed."
 
         full_path = (tests_dir / relative_file_path).resolve()
 
-        # Security Check: Ensure the final path is within the tests_dir sandbox
         if not str(full_path).startswith(str(tests_dir)):
             return f"Error: Security violation. Attempted to write file outside of the designated 'tests' directory."
 
         full_path.parent.mkdir(parents=True, exist_ok=True)
         full_path.write_text(content, encoding='utf-8')
         
-        # Return the path relative to the workspace for clarity
         workspace_relative_path = full_path.relative_to(WORKSPACE_PATH)
         return f"Success: Test file created at '{workspace_relative_path}'."
 
     except Exception as e:
         return f"Error: An unexpected error occurred while creating test file: {e}"
 
+# --- NEW: Test Execution Tool (Sprint 16) ---
+def run_tests() -> str:
+    """
+    Executes the pytest suite inside the agent's workspace and captures the output.
+    This tool requires no arguments.
+
+    Returns:
+        A string containing the combined stdout and stderr from the pytest command.
+    """
+    try:
+        # Execute pytest within the WORKSPACE_PATH directory to ensure correct test discovery.
+        # We capture both stdout and stderr to provide a complete picture to the agent.
+        process = subprocess.run(
+            ["pytest"],
+            cwd=WORKSPACE_PATH,
+            capture_output=True,
+            text=True, # Ensure stdout/stderr are decoded as text
+            check=False # Prevent raising an exception for non-zero (failing test) exit codes
+        )
+        
+        # Combine stdout and stderr for a comprehensive report.
+        output = f"--- STDOUT ---\n{process.stdout}\n\n--- STDERR ---\n{process.stderr}"
+        
+        return output
+
+    except FileNotFoundError:
+        return "Error: `pytest` command not found. Is pytest installed in the environment?"
+    except Exception as e:
+        return f"Error: An unexpected error occurred while running tests: {e}"
 
 # --- Structurally-Aware Refactoring Tool ---
 def add_docstring_to_function(file_path: str, function_name: str, docstring: str) -> str:
