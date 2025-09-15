@@ -65,22 +65,25 @@ def parse(
     
     # --- FIXED HERE: A much more robust exclusion logic ---
     # This now checks if a file's RELATIVE path starts with a banned directory name.
-    # This prevents it from incorrectly excluding files when our project is cloned
-    # into a folder that has a banned name in its absolute path (like 'work_area').
-    EXCLUDE_DIRS = (
+    # This is the correct way to ignore directories like `.venv`.
+    EXCLUDE_PATTERNS = (
         ".venv/", "venv/", ".git/", "__pycache__/",
-        "work_area/", "reports/", "semantic_db/", "target_repo/"
+        "work_area/", "reports/", "semantic_db/", "target_repo/",
+        "build/", "dist/", "docs/"
     )
     
     python_files = []
     for f in all_python_files:
-        relative_path_str = str(f.relative_to(repo_path))
-        if not relative_path_str.startswith(EXCLUDE_DIRS):
-            python_files.append(f)
+        try:
+            relative_path_str = str(f.relative_to(repo_path).as_posix())
+            if not relative_path_str.startswith(EXCLUDE_PATTERNS):
+                python_files.append(f)
+        except ValueError:
+            # This can happen if a file is not within the repo_path, which is safe to ignore
+            continue
 
     if not python_files:
         typer.secho("⚠️ No Python files found in the specified directory.", fg=typer.colors.YELLOW)
-        # We raise an exception here so the web worker can catch it and report a failure.
         raise typer.Exit(code=1)
         
     typer.secho(f"    - Found {len(python_files)} Python files to process.", fg=typer.colors.GREEN)
@@ -122,4 +125,3 @@ def parse(
 
 if __name__ == "__main__":
     app()
-

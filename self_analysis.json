@@ -12,6 +12,414 @@
             "end_line": 0
         },
         {
+            "id": "src/codex/agent/core.py",
+            "type": "File",
+            "name": "core.py",
+            "file_path": "src/codex/agent/core.py",
+            "start_line": 1,
+            "end_line": 193
+        },
+        {
+            "id": "src/codex/agent/core.py::configure_services",
+            "type": "Function",
+            "name": "configure_services",
+            "file_path": "src/codex/agent/core.py",
+            "start_line": 31,
+            "end_line": 41
+        },
+        {
+            "id": "src/codex/agent/core.py::ToolCall",
+            "type": "Class",
+            "name": "ToolCall",
+            "file_path": "src/codex/agent/core.py",
+            "start_line": 49,
+            "end_line": 51
+        },
+        {
+            "id": "src/codex/agent/core.py::AgentResponse",
+            "type": "Class",
+            "name": "AgentResponse",
+            "file_path": "src/codex/agent/core.py",
+            "start_line": 53,
+            "end_line": 55
+        },
+        {
+            "id": "src/codex/agent/core.py::Agent",
+            "type": "Class",
+            "name": "Agent",
+            "file_path": "src/codex/agent/core.py",
+            "start_line": 57,
+            "end_line": 193
+        },
+        {
+            "id": "src/codex/agent/core.py::Agent::__init__",
+            "type": "Method",
+            "name": "__init__",
+            "file_path": "src/codex/agent/core.py",
+            "start_line": 60,
+            "end_line": 95
+        },
+        {
+            "id": "src/codex/agent/core.py::Agent::_build_default_prompt",
+            "type": "Method",
+            "name": "_build_default_prompt",
+            "file_path": "src/codex/agent/core.py",
+            "start_line": 97,
+            "end_line": 111
+        },
+        {
+            "id": "src/codex/agent/core.py::Agent::_build_reviewer_prompt",
+            "type": "Method",
+            "name": "_build_reviewer_prompt",
+            "file_path": "src/codex/agent/core.py",
+            "start_line": 113,
+            "end_line": 132
+        },
+        {
+            "id": "src/codex/agent/core.py::Agent::run",
+            "type": "Method",
+            "name": "run",
+            "file_path": "src/codex/agent/core.py",
+            "start_line": 134,
+            "end_line": 193
+        },
+        {
+            "id": "import::json",
+            "type": "Import",
+            "name": "json",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::re",
+            "type": "Import",
+            "name": "re",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::inspect",
+            "type": "Import",
+            "name": "inspect",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::os",
+            "type": "Import",
+            "name": "os",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Path",
+            "type": "Import",
+            "name": "Path",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Dict",
+            "type": "Import",
+            "name": "Dict",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Any",
+            "type": "Import",
+            "name": "Any",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::List",
+            "type": "Import",
+            "name": "List",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::BaseModel",
+            "type": "Import",
+            "name": "BaseModel",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Field",
+            "type": "Import",
+            "name": "Field",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::ValidationError",
+            "type": "Import",
+            "name": "ValidationError",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::load_dotenv",
+            "type": "Import",
+            "name": "load_dotenv",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/agent/github_tools.py",
+            "type": "File",
+            "name": "github_tools.py",
+            "file_path": "src/codex/agent/github_tools.py",
+            "start_line": 1,
+            "end_line": 191
+        },
+        {
+            "id": "src/codex/agent/github_tools.py::_get_github_instance",
+            "type": "Function",
+            "name": "_get_github_instance",
+            "file_path": "src/codex/agent/github_tools.py",
+            "start_line": 21,
+            "end_line": 40
+        },
+        {
+            "id": "src/codex/agent/github_tools.py::get_issue_details",
+            "type": "Function",
+            "name": "get_issue_details",
+            "file_path": "src/codex/agent/github_tools.py",
+            "start_line": 44,
+            "end_line": 68
+        },
+        {
+            "id": "src/codex/agent/github_tools.py::post_comment_on_issue",
+            "type": "Function",
+            "name": "post_comment_on_issue",
+            "file_path": "src/codex/agent/github_tools.py",
+            "start_line": 70,
+            "end_line": 99
+        },
+        {
+            "id": "src/codex/agent/github_tools.py::get_pr_changed_files",
+            "type": "Function",
+            "name": "get_pr_changed_files",
+            "file_path": "src/codex/agent/github_tools.py",
+            "start_line": 103,
+            "end_line": 127
+        },
+        {
+            "id": "src/codex/agent/github_tools.py::get_file_content_from_pr",
+            "type": "Function",
+            "name": "get_file_content_from_pr",
+            "file_path": "src/codex/agent/github_tools.py",
+            "start_line": 129,
+            "end_line": 159
+        },
+        {
+            "id": "src/codex/agent/github_tools.py::post_pr_review_comment",
+            "type": "Function",
+            "name": "post_pr_review_comment",
+            "file_path": "src/codex/agent/github_tools.py",
+            "start_line": 161,
+            "end_line": 190
+        },
+        {
+            "id": "import::Github",
+            "type": "Import",
+            "name": "Github",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::GithubException",
+            "type": "Import",
+            "name": "GithubException",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/agent/main.py",
+            "type": "File",
+            "name": "main.py",
+            "file_path": "src/codex/agent/main.py",
+            "start_line": 1,
+            "end_line": 180
+        },
+        {
+            "id": "src/codex/agent/main.py::DummyQueryEngine",
+            "type": "Class",
+            "name": "DummyQueryEngine",
+            "file_path": "src/codex/agent/main.py",
+            "start_line": 34,
+            "end_line": 43
+        },
+        {
+            "id": "src/codex/agent/main.py::DummyQueryEngine::query_semantic",
+            "type": "Method",
+            "name": "query_semantic",
+            "file_path": "src/codex/agent/main.py",
+            "start_line": 37,
+            "end_line": 39
+        },
+        {
+            "id": "src/codex/agent/main.py::DummyQueryEngine::_query_structural",
+            "type": "Method",
+            "name": "_query_structural",
+            "file_path": "src/codex/agent/main.py",
+            "start_line": 41,
+            "end_line": 43
+        },
+        {
+            "id": "src/codex/agent/main.py::_initialize_services",
+            "type": "Function",
+            "name": "_initialize_services",
+            "file_path": "src/codex/agent/main.py",
+            "start_line": 46,
+            "end_line": 61
+        },
+        {
+            "id": "src/codex/agent/main.py::run_task",
+            "type": "Function",
+            "name": "run_task",
+            "file_path": "src/codex/agent/main.py",
+            "start_line": 68,
+            "end_line": 92
+        },
+        {
+            "id": "src/codex/agent/main.py::interact_issue",
+            "type": "Function",
+            "name": "interact_issue",
+            "file_path": "src/codex/agent/main.py",
+            "start_line": 98,
+            "end_line": 124
+        },
+        {
+            "id": "src/codex/agent/main.py::review_pr",
+            "type": "Function",
+            "name": "review_pr",
+            "file_path": "src/codex/agent/main.py",
+            "start_line": 130,
+            "end_line": 175
+        },
+        {
+            "id": "import::Optional",
+            "type": "Import",
+            "name": "Optional",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Annotated",
+            "type": "Import",
+            "name": "Annotated",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::typer",
+            "type": "Import",
+            "name": "typer",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Console",
+            "type": "Import",
+            "name": "Console",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "import::Panel",
+            "type": "Import",
+            "name": "Panel",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
+        },
+        {
+            "id": "src/codex/agent/new_feature.py",
+            "type": "File",
+            "name": "new_feature.py",
+            "file_path": "src/codex/agent/new_feature.py",
+            "start_line": 1,
+            "end_line": 8
+        },
+        {
+            "id": "src/codex/agent/new_feature.py::calculate_complexity",
+            "type": "Function",
+            "name": "calculate_complexity",
+            "file_path": "src/codex/agent/new_feature.py",
+            "start_line": 2,
+            "end_line": 8
+        },
+        {
+            "id": "src/codex/agent/tools.py",
+            "type": "File",
+            "name": "tools.py",
+            "file_path": "src/codex/agent/tools.py",
+            "start_line": 1,
+            "end_line": 124
+        },
+        {
+            "id": "src/codex/agent/tools.py::list_files",
+            "type": "Function",
+            "name": "list_files",
+            "file_path": "src/codex/agent/tools.py",
+            "start_line": 26,
+            "end_line": 37
+        },
+        {
+            "id": "src/codex/agent/tools.py::read_file",
+            "type": "Function",
+            "name": "read_file",
+            "file_path": "src/codex/agent/tools.py",
+            "start_line": 39,
+            "end_line": 50
+        },
+        {
+            "id": "src/codex/agent/tools.py::write_file",
+            "type": "Function",
+            "name": "write_file",
+            "file_path": "src/codex/agent/tools.py",
+            "start_line": 52,
+            "end_line": 63
+        },
+        {
+            "id": "src/codex/agent/tools.py::parse_code_snippet",
+            "type": "Function",
+            "name": "parse_code_snippet",
+            "file_path": "src/codex/agent/tools.py",
+            "start_line": 67,
+            "end_line": 90
+        },
+        {
+            "id": "src/codex/agent/tools.py::find_similar_code",
+            "type": "Function",
+            "name": "find_similar_code",
+            "file_path": "src/codex/agent/tools.py",
+            "start_line": 92,
+            "end_line": 123
+        },
+        {
             "id": "src/codex/cli/main.py",
             "type": "File",
             "name": "main.py",
@@ -50,46 +458,6 @@
             "file_path": "src/codex/cli/main.py",
             "start_line": 133,
             "end_line": 169
-        },
-        {
-            "id": "import::Path",
-            "type": "Import",
-            "name": "Path",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
-            "id": "import::Annotated",
-            "type": "Import",
-            "name": "Annotated",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
-            "id": "import::typer",
-            "type": "Import",
-            "name": "typer",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
-            "id": "import::Console",
-            "type": "Import",
-            "name": "Console",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
-            "id": "import::Panel",
-            "type": "Import",
-            "name": "Panel",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
         },
         {
             "id": "src/codex/cli/__init__.py",
@@ -180,38 +548,6 @@
             "end_line": 96
         },
         {
-            "id": "import::json",
-            "type": "Import",
-            "name": "json",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
-            "id": "import::List",
-            "type": "Import",
-            "name": "List",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
-            "id": "import::Dict",
-            "type": "Import",
-            "name": "Dict",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
-            "id": "import::Any",
-            "type": "Import",
-            "name": "Any",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
             "id": "import::json_graph",
             "type": "Import",
             "name": "json_graph",
@@ -233,7 +569,7 @@
             "name": "main.py",
             "file_path": "src/codex/ingestion/main.py",
             "start_line": 1,
-            "end_line": 123
+            "end_line": 127
         },
         {
             "id": "src/codex/ingestion/main.py::parse",
@@ -241,7 +577,7 @@
             "name": "parse",
             "file_path": "src/codex/ingestion/main.py",
             "start_line": 39,
-            "end_line": 120
+            "end_line": 124
         },
         {
             "id": "import::time",
@@ -297,39 +633,47 @@
             "name": "parser.py",
             "file_path": "src/codex/ingestion/parser.py",
             "start_line": 1,
-            "end_line": 172
+            "end_line": 164
         },
         {
             "id": "src/codex/ingestion/parser.py::_get_node_text",
             "type": "Function",
             "name": "_get_node_text",
             "file_path": "src/codex/ingestion/parser.py",
-            "start_line": 36,
-            "end_line": 38
+            "start_line": 34,
+            "end_line": 36
         },
         {
             "id": "src/codex/ingestion/parser.py::_create_unique_id",
             "type": "Function",
             "name": "_create_unique_id",
             "file_path": "src/codex/ingestion/parser.py",
-            "start_line": 40,
-            "end_line": 42
+            "start_line": 38,
+            "end_line": 40
         },
         {
             "id": "src/codex/ingestion/parser.py::_get_node_ancestors",
             "type": "Function",
             "name": "_get_node_ancestors",
             "file_path": "src/codex/ingestion/parser.py",
-            "start_line": 44,
-            "end_line": 49
+            "start_line": 42,
+            "end_line": 47
+        },
+        {
+            "id": "src/codex/ingestion/parser.py::parse_code_to_components",
+            "type": "Function",
+            "name": "parse_code_to_components",
+            "file_path": "src/codex/ingestion/parser.py",
+            "start_line": 50,
+            "end_line": 145
         },
         {
             "id": "src/codex/ingestion/parser.py::parse_file_to_graph_components",
             "type": "Function",
             "name": "parse_file_to_graph_components",
             "file_path": "src/codex/ingestion/parser.py",
-            "start_line": 53,
-            "end_line": 170
+            "start_line": 149,
+            "end_line": 163
         },
         {
             "id": "import::logging",
@@ -377,46 +721,46 @@
             "name": "engine.py",
             "file_path": "src/codex/query/engine.py",
             "start_line": 1,
-            "end_line": 164
+            "end_line": 166
         },
         {
             "id": "src/codex/query/engine.py::QueryEngine",
             "type": "Class",
             "name": "QueryEngine",
             "file_path": "src/codex/query/engine.py",
-            "start_line": 30,
-            "end_line": 163
+            "start_line": 26,
+            "end_line": 165
         },
         {
             "id": "src/codex/query/engine.py::QueryEngine::__init__",
             "type": "Method",
             "name": "__init__",
             "file_path": "src/codex/query/engine.py",
-            "start_line": 33,
-            "end_line": 61
+            "start_line": 29,
+            "end_line": 52
         },
         {
             "id": "src/codex/query/engine.py::QueryEngine::query_semantic",
             "type": "Method",
             "name": "query_semantic",
             "file_path": "src/codex/query/engine.py",
-            "start_line": 63,
-            "end_line": 79
+            "start_line": 54,
+            "end_line": 82
         },
         {
             "id": "src/codex/query/engine.py::QueryEngine::_query_structural",
             "type": "Method",
             "name": "_query_structural",
             "file_path": "src/codex/query/engine.py",
-            "start_line": 81,
-            "end_line": 96
+            "start_line": 84,
+            "end_line": 100
         },
         {
             "id": "src/codex/query/engine.py::QueryEngine::display_semantic_results",
             "type": "Method",
             "name": "display_semantic_results",
             "file_path": "src/codex/query/engine.py",
-            "start_line": 98,
+            "start_line": 102,
             "end_line": 118
         },
         {
@@ -433,7 +777,15 @@
             "name": "explain_concept",
             "file_path": "src/codex/query/engine.py",
             "start_line": 141,
-            "end_line": 163
+            "end_line": 165
+        },
+        {
+            "id": "import::Literal",
+            "type": "Import",
+            "name": "Literal",
+            "file_path": "external",
+            "start_line": 0,
+            "end_line": 0
         },
         {
             "id": "import::chromadb",
@@ -660,14 +1012,6 @@
             "end_line": 0
         },
         {
-            "id": "import::BaseModel",
-            "type": "Import",
-            "name": "BaseModel",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
             "id": "src/codex/webapp/main.py",
             "type": "File",
             "name": "main.py",
@@ -807,14 +1151,6 @@
             "id": "import::stat",
             "type": "Import",
             "name": "stat",
-            "file_path": "external",
-            "start_line": 0,
-            "end_line": 0
-        },
-        {
-            "id": "import::os",
-            "type": "Import",
-            "name": "os",
             "file_path": "external",
             "start_line": 0,
             "end_line": 0
@@ -965,6 +1301,286 @@
         }
     ],
     "links": [
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "src/codex/agent/core.py::configure_services",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "src/codex/agent/core.py::ToolCall",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "src/codex/agent/core.py::AgentResponse",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "src/codex/agent/core.py::Agent",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::json",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::re",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::inspect",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::os",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::Dict",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::Any",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::List",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::BaseModel",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::Field",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::ValidationError",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py",
+            "target": "import::load_dotenv",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/core.py::Agent",
+            "target": "src/codex/agent/core.py::Agent::__init__",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/core.py::Agent",
+            "target": "src/codex/agent/core.py::Agent::_build_default_prompt",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/core.py::Agent",
+            "target": "src/codex/agent/core.py::Agent::_build_reviewer_prompt",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/core.py::Agent",
+            "target": "src/codex/agent/core.py::Agent::run",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "src/codex/agent/github_tools.py::_get_github_instance",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "src/codex/agent/github_tools.py::get_issue_details",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "src/codex/agent/github_tools.py::post_comment_on_issue",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "src/codex/agent/github_tools.py::get_pr_changed_files",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "src/codex/agent/github_tools.py::get_file_content_from_pr",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "src/codex/agent/github_tools.py::post_pr_review_comment",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "import::os",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "import::json",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "import::Github",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/github_tools.py",
+            "target": "import::GithubException",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "src/codex/agent/main.py::DummyQueryEngine",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "src/codex/agent/main.py::_initialize_services",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "src/codex/agent/main.py::run_task",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "src/codex/agent/main.py::interact_issue",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "src/codex/agent/main.py::review_pr",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "import::re",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "import::Optional",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "import::Annotated",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "import::typer",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "import::Console",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/main.py",
+            "target": "import::Panel",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/main.py::DummyQueryEngine",
+            "target": "src/codex/agent/main.py::DummyQueryEngine::query_semantic",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/main.py::DummyQueryEngine",
+            "target": "src/codex/agent/main.py::DummyQueryEngine::_query_structural",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/new_feature.py",
+            "target": "src/codex/agent/new_feature.py::calculate_complexity",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "src/codex/agent/tools.py::list_files",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "src/codex/agent/tools.py::read_file",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "src/codex/agent/tools.py::write_file",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "src/codex/agent/tools.py::parse_code_snippet",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "src/codex/agent/tools.py::find_similar_code",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "import::os",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "import::json",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "import::Path",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "import::Dict",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "import::Any",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/agent/tools.py",
+            "target": "import::List",
+            "type": "IMPORTS"
+        },
         {
             "source": "src/codex/cli/main.py",
             "target": "src/codex/cli/main.py::index",
@@ -1152,6 +1768,11 @@
         },
         {
             "source": "src/codex/ingestion/parser.py",
+            "target": "src/codex/ingestion/parser.py::parse_code_to_components",
+            "type": "DEFINES"
+        },
+        {
+            "source": "src/codex/ingestion/parser.py",
             "target": "src/codex/ingestion/parser.py::parse_file_to_graph_components",
             "type": "DEFINES"
         },
@@ -1218,6 +1839,16 @@
         {
             "source": "src/codex/query/engine.py",
             "target": "import::Any",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::Literal",
+            "type": "IMPORTS"
+        },
+        {
+            "source": "src/codex/query/engine.py",
+            "target": "import::Optional",
             "type": "IMPORTS"
         },
         {

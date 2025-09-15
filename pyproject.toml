@@ -14,12 +14,14 @@ tree-sitter-languages = "1.9.1"
 networkx = "^3.3"
 chromadb = "^0.5.4"
 sentence-transformers = "^3.0.1"
-# --- New Dependencies for Sprint 4 ---
 fastapi = "^0.111.1"
 uvicorn = {extras = ["standard"], version = "^0.30.3"}
 GitPython = "^3.1.43"
-# --- FIXED HERE: Corrected the package name ---
 markdown2 = "^2.4.13"
+python-dotenv = "^1.0.1"
+google-generativeai = "^0.7.2"
+# --- New Dependency for Sprint 8 ---
+pygithub = "^2.3.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -34,3 +36,4 @@ build-backend = "poetry.core.masonry.api"
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+
