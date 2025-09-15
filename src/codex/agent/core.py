@@ -181,6 +181,7 @@ class Agent:
             "read_file": getattr(agent_tools, "read_file", None),
             "write_file": getattr(agent_tools, "write_file", None),
             "create_new_file": getattr(agent_tools, "create_new_file", None),
+            "create_new_test_file": getattr(agent_tools, "create_new_test_file", None), # --- NEW ---
             "add_docstring_to_function": getattr(agent_tools, "add_docstring_to_function", None),
             "get_issue_details": getattr(github_tools, "get_issue_details", None),
             "post_comment_on_issue": getattr(github_tools, "post_comment_on_issue", None),
@@ -202,6 +203,7 @@ class Agent:
             "reviewer": self._build_reviewer_prompt(),
             "refactor": self._build_refactor_prompt(),
             "feature_dev": self._build_feature_dev_prompt(),
+            "tester": self._build_tester_prompt(), # --- NEW ---
         }
 
     def _build_default_prompt(self) -> str:
@@ -242,6 +244,21 @@ class Agent:
             "1. Plan the full file path and content for the new feature.\n"
             "2. Use the `create_new_file` tool to write the complete code into the specified file.\n"
             "3. After successfully creating the file, use the `finish` tool to report your success.\n\n"
+            "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
+            "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
+        )
+
+    # --- NEW: Persona for Test Generation (Sprint 15) ---
+    def _build_tester_prompt(self) -> str:
+        """Persona prompt for generating new unit tests."""
+        return (
+            "You are an expert Test Architect specializing in `pytest`.\n\n"
+            "WORKFLOW:\n"
+            "1. **Analyze:** First, use `read_file` to analyze the source code file you need to test.\n"
+            "2. **Identify Targets:** In your thought process, identify all public functions and methods in the file.\n"
+            "3. **Generate & Synthesize:** For each target, generate a basic but complete pytest test case. Combine all generated tests into a single, syntactically correct Python file string. Your generated code MUST include all necessary imports.\n"
+            "4. **Save Test File:** Use the `create_new_test_file` tool to save the complete test code to a new file. The test filename MUST start with `test_`.\n"
+            "5. **Finish:** Once the test file is created, use the `finish` tool.\n\n"
             "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
             "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
         )

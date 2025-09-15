@@ -59,7 +59,6 @@ def write_file(file_path: str, content: str) -> str:
     except Exception as e:
         return f"Error writing file: {e}"
 
-# --- NEW: Consolidated from new_feature.py ---
 def create_new_file(relative_file_path: str, content: str) -> str:
     """
     Creates a new file with the specified content at a path relative to the project root.
@@ -70,19 +69,46 @@ def create_new_file(relative_file_path: str, content: str) -> str:
         content: The complete source code or text to write into the new file.
     """
     try:
-        # This path is calculated from the project's CWD, which is correct for our execution context.
         full_path = Path.cwd() / relative_file_path
-        
-        # Create parent directories if they don't exist
         full_path.parent.mkdir(parents=True, exist_ok=True)
-        
-        # Write the content to the file
         full_path.write_text(content, encoding='utf-8')
-        
         return f"Success: File '{relative_file_path}' created successfully."
-
     except Exception as e:
         return f"Error: An unexpected error occurred while creating file '{relative_file_path}': {e}"
+
+# --- NEW: Sandboxed Tool for Test Creation (Sprint 15) ---
+def create_new_test_file(relative_file_path: str, content: str) -> str:
+    """
+    Creates a new test file in the 'tests/' subdirectory of the workspace.
+    This tool is sandboxed and cannot write files outside of the 'tests/' directory.
+
+    Args:
+        relative_file_path: The path for the new file, relative to the 'tests/' directory (e.g., 'test_my_new_module.py').
+        content: The complete source code for the test file.
+    """
+    try:
+        tests_dir = (WORKSPACE_PATH / "tests").resolve()
+        tests_dir.mkdir(exist_ok=True) # Ensure the tests directory exists
+
+        # Sanitize the relative path to prevent directory traversal
+        if ".." in Path(relative_file_path).parts:
+             return "Error: Path traversal ('..') is not allowed."
+
+        full_path = (tests_dir / relative_file_path).resolve()
+
+        # Security Check: Ensure the final path is within the tests_dir sandbox
+        if not str(full_path).startswith(str(tests_dir)):
+            return f"Error: Security violation. Attempted to write file outside of the designated 'tests' directory."
+
+        full_path.parent.mkdir(parents=True, exist_ok=True)
+        full_path.write_text(content, encoding='utf-8')
+        
+        # Return the path relative to the workspace for clarity
+        workspace_relative_path = full_path.relative_to(WORKSPACE_PATH)
+        return f"Success: Test file created at '{workspace_relative_path}'."
+
+    except Exception as e:
+        return f"Error: An unexpected error occurred while creating test file: {e}"
 
 
 # --- Structurally-Aware Refactoring Tool ---
@@ -153,3 +179,4 @@ def add_docstring_to_function(file_path: str, function_name: str, docstring: str
 
     except Exception as e:
         return f"An unexpected error occurred: {e}"
+

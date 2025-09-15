@@ -79,3 +79,6 @@ flask_session/
 
 # Agent Task Memory
 tasks/
+
+# Agent artifacts
+workspace/
