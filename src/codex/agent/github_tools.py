@@ -8,7 +8,7 @@ API communication.
 Core responsibilities:
 1.  Securely authenticating with the GitHub API using a Personal Access Token.
 2.  Providing tools to interact with GitHub Issues.
-3.  Providing tools to interact with GitHub Pull Requests for code review.
+3.  Providing tools to interact with GitHub Pull Requests for code review and creation.
 """
 
 import os
@@ -39,7 +39,7 @@ def _get_github_instance():
             return None
     return _github_instance
 
-# --- Issue Tools (from Sprint 8) ---
+# --- Issue Tools ---
 
 def get_issue_details(repo_name: str, issue_number: int) -> str:
     """
@@ -98,7 +98,7 @@ def post_comment_on_issue(repo_name: str, issue_number: int, comment_body: str) 
     except Exception as e:
         return f"An unexpected error occurred: {e}"
 
-# --- NEW Pull Request Tools (for Sprint 9) ---
+# --- Pull Request Tools ---
 
 def get_pr_changed_files(repo_name: str, pr_number: int) -> str:
     """
@@ -145,12 +145,9 @@ def get_file_content_from_pr(repo_name: str, pr_number: int, file_path: str) -> 
     try:
         repo = g.get_repo(repo_name)
         pr = repo.get_pull(number=pr_number)
-        # Get the commit SHA of the PR's head branch
         head_sha = pr.head.sha
-        # Get the file content at that specific commit
         file_content = repo.get_contents(file_path, ref=head_sha)
         
-        # The content is base64 encoded, so we must decode it.
         return file_content.decoded_content.decode('utf-8')
         
     except GithubException as e:
@@ -189,3 +186,26 @@ def post_pr_review_comment(repo_name: str, pr_number: int, comment_body: str) ->
     except Exception as e:
         return f"An unexpected error occurred: {e}"
 
+# --- NEW: Pull Request Creation Tool (Sprint 19) ---
+def create_pull_request(repo_name: str, branch_name: str, title: str, body: str) -> str:
+    """Creates a new pull request on GitHub from a specified branch."""
+    g = _get_github_instance()
+    if g is None:
+        return "Error: GitHub API is not authenticated."
+
+    try:
+        repo = g.get_repo(repo_name)
+        base_branch = repo.default_branch
+
+        pr = repo.create_pull(
+            title=title,
+            body=body,
+            head=branch_name,
+            base=base_branch
+        )
+
+        return f"Success: Pull request created successfully. URL: {pr.html_url}"
+    except GithubException as e:
+        return f"Error creating pull request: {e.status} {e.data}"
+    except Exception as e:
+        return f"An unexpected error occurred: {e}"
