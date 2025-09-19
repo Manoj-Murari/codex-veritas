@@ -1,0 +1,19 @@
+# Ignore virtualenvs
+.venv
+venv
+__pycache__
+
+# Ignore git & IDE stuff
+.git
+.gitignore
+.vscode
+.idea
+
+# Ignore OS junk
+*.log
+*.tmp
+.DS_Store
+
+# Ignore big local dirs
+tasks
+workspace
