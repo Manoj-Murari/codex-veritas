@@ -183,7 +183,6 @@ class Agent:
             "create_new_file": getattr(agent_tools, "create_new_file", None),
             "create_new_test_file": getattr(agent_tools, "create_new_test_file", None),
             "run_tests": getattr(agent_tools, "run_tests", None),
-            "add_docstring_to_function": getattr(agent_tools, "add_docstring_to_function", None),
             "get_issue_details": getattr(github_tools, "get_issue_details", None),
             "post_comment_on_issue": getattr(github_tools, "post_comment_on_issue", None),
             "get_pr_changed_files": getattr(github_tools, "get_pr_changed_files", None),
@@ -279,7 +278,6 @@ class Agent:
             "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
         )
 
-    # --- CORRECTED: Persona for TDD Bug Fixing (Sprint 17) ---
     def _build_tdd_prompt(self) -> str:
         """Persona prompt for fixing a bug using a strict TDD workflow."""
         return (

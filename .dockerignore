@@ -1,19 +1,20 @@
-# Ignore virtualenvs
-.venv
-venv
-__pycache__
+# Ignore Python virtual environment
+.venv/
+venv/
 
-# Ignore git & IDE stuff
-.git
-.gitignore
-.vscode
-.idea
+# Ignore agent's temporary directories
+workspace/
+tasks/
 
-# Ignore OS junk
-*.log
-*.tmp
-.DS_Store
+# Ignore Python bytecode and caches
+__pycache__/
+*.pyc
+.pytest_cache/
 
-# Ignore big local dirs
-tasks
-workspace
+# Ignore Git directory
+.git/
+
+# Ignore IDE/editor-specific files
+.vscode/
+.idea/
+
