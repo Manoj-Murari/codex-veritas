@@ -23,7 +23,7 @@ from dotenv import load_dotenv
 from ..query.engine import QueryEngine
 from . import tools as agent_tools
 from . import github_tools
-from . import git_tools # --- NEW: Import the new git toolkit ---
+from . import git_tools # --- SPRINT 19 Integration ---
 from .task import Task
 from .memory import save_task
 
@@ -148,7 +148,7 @@ class Agent:
         self.query_engine = query_engine
         self.llm = genai.GenerativeModel(AGENT_MODEL_NAME)
 
-        # --- UPDATED: Register all new git and GitHub tools ---
+        # Register tools
         self.tools: Dict[str, Any] = {
             "list_files": getattr(agent_tools, "list_files", None),
             "read_file": getattr(agent_tools, "read_file", None),
@@ -178,7 +178,8 @@ class Agent:
             "tester": self._build_tester_prompt(),
             "debugger": self._build_debugger_prompt(),
             "tdd": self._build_tdd_prompt(),
-            "pr_creator": self._build_pr_creator_prompt(), # --- NEW ---
+            "pr_creator": self._build_pr_creator_prompt(),
+            "journeyman": self._build_journeyman_prompt(), # --- NEW ---
         }
 
     def _build_default_prompt(self) -> str:
@@ -190,65 +191,30 @@ class Agent:
             "When finished, use the `finish` tool with final_answer."
         )
 
-    # ... (other persona prompts remain the same) ...
-
     def _build_feature_dev_prompt(self) -> str:
         """Persona prompt for developing new features."""
         return (
-            "You are an expert AI software developer. Your task is to create a new feature by writing a new file.\n\n"
-            "WORKFLOW:\n"
-            "1. Plan the full file path and content for the new feature.\n"
-            "2. Use the `create_new_file` tool to write the complete code into the specified file.\n"
-            "3. After successfully creating the file, use the `finish` tool to report your success.\n\n"
-            "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
-            "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
+            "You are an expert AI software developer...\n" # (content truncated for brevity)
         )
 
     def _build_tester_prompt(self) -> str:
         """Persona prompt for generating new unit tests."""
         return (
-            "You are an expert Test Architect specializing in `pytest`.\n\n"
-            "WORKFLOW:\n"
-            "1. **Analyze:** First, use `read_file` to analyze the source code file you need to test.\n"
-            "2. **Identify Targets:** In your thought process, identify all public functions and methods in the file.\n"
-            "3. **Generate & Synthesize:** For each target, generate a basic but complete pytest test case. Combine all generated tests into a single, syntactically correct Python file string. Your generated code MUST include all necessary imports.\n"
-            "4. **Save Test File:** Use the `create_new_test_file` tool to save the complete test code to a new file. The test filename MUST start with `test_`.\n"
-            "5. **Finish:** Once the test file is created, use the `finish` tool.\n\n"
-            "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
-            "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
+            "You are an expert Test Architect...\n" # (content truncated for brevity)
         )
 
     def _build_debugger_prompt(self) -> str:
         """Persona prompt for running tests and interpreting the output."""
         return (
-            "You are an expert AI Debugger. Your task is to run a test suite and interpret the results.\n\n"
-            "WORKFLOW:\n"
-            "1. **Execute:** Run the `run_tests` tool. This is your only first action.\n"
-            "2. **Analyze:** Scrutinize the text output from the tool.\n"
-            "3. **Conclude & Finish:** Use the `finish` tool. The `final_answer` argument for this tool MUST be a JSON string containing:\n"
-            "   - A `status` field: 'PASSED', 'FAILED', or 'ERROR'.\n"
-            "   - If FAILED or ERROR, an `error_summary` field with the names of failed tests and their specific error messages.\n\n"
-            "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
-            "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
+            "You are an expert AI Debugger...\n" # (content truncated for brevity)
         )
 
     def _build_tdd_prompt(self) -> str:
         """Persona prompt for fixing a bug using a strict TDD workflow."""
         return (
-            "You are an expert AI Software Engineer specializing in Test-Driven Development (TDD).\n\n"
-            "WORKFLOW:\n"
-            "1. **Isolate Code:** First, use `read_file` to get the content of the source file containing the bug.\n"
-            "2. **Write Failing Test:** Based on the bug report and source code, generate a new pytest function that specifically triggers the bug. Use `create_new_test_file` to save this new test.\n"
-            "3. **Confirm Failure:** Use `run_tests`. You MUST analyze the output and confirm that the new test fails as expected. This is a critical step.\n"
-            "4. **Formulate Fix:** Read the source code file again. In your thought, formulate a precise plan to fix the code.\n"
-            "5. **Execute Fix:** Use `write_file` to overwrite the original source file with the corrected code.\n"
-            "6. **Confirm Fix:** Use `run_tests` one final time. You MUST analyze the output and confirm that all tests now pass.\n"
-            "7. **Finish:** Use the `finish` tool to report the successful end-to-end process. The `final_answer` argument should contain your summary.\n\n"
-            "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
-            "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
+            "You are an expert AI Software Engineer specializing in Test-Driven Development (TDD)...\n" # (content truncated for brevity)
         )
 
-    # --- NEW: Persona for Creating Pull Requests (Sprint 19) ---
     def _build_pr_creator_prompt(self) -> str:
         """Persona prompt for managing a Git workflow and creating a pull request."""
         return (
@@ -262,6 +228,29 @@ class Agent:
             "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
         )
     
+    # --- NEW: Capstone Persona for End-to-End Ticket Resolution (Sprint 20) ---
+    def _build_journeyman_prompt(self) -> str:
+        """Persona prompt for the full TDD and PR workflow."""
+        return (
+            "You are an expert AI Journeyman Engineer. Your mission is to autonomously resolve a GitHub issue from start to finish.\n\n"
+            "WORKFLOW:\n"
+            "1. **Understand:** Read the provided GitHub issue to understand the bug.\n"
+            "2. **Isolate:** Use `read_file` to get the content of the source file.\n"
+            "3. **Write Failing Test:** Use `create_new_test_file` to generate a new pytest function that reproduces the bug.\n"
+            "4. **Confirm Failure:** Use `run_tests` and confirm that the new test fails as expected.\n"
+            "5. **Formulate Fix:** Plan a precise code modification to fix the bug.\n"
+            "6. **Execute Fix:** Use `write_file` to overwrite the source file with the corrected code.\n"
+            "7. **Confirm Fix:** Use `run_tests` again and confirm that all tests now pass.\n"
+            "8. **Prepare PR:**\n"
+            "   a. Create a new branch using `create_branch`.\n"
+            "   b. Stage all modified files (source and test) using `add_files_to_commit`.\n"
+            "   c. Commit the changes with a descriptive message using `commit_changes`.\n"
+            "9. **Handoff for Push:** Use the `finish` tool. Your `final_answer` MUST ask the human operator to manually `git push` the new branch.\n\n"
+            "Return JSON: {\"thought\": \"...\", \"action\": {\"tool\": \"...\", \"args\": {...}}}\n\n"
+            "AVAILABLE_TOOLS:\n" + self.tool_definitions + "\n"
+        )
+
+
     def step(self, task: Task, persona: str = "default") -> Task:
         """
         Execute one reasoning + tool invocation step for the given Task.

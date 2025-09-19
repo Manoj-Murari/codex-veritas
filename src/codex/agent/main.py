@@ -1,10 +1,12 @@
 """
 The Agent's Command Center.
 
-This module provides a command-line interface (CLI) to orchestrate and
-launch the Codex Veritas agent on various autonomous missions.
+This module provides the primary command-line interface (CLI) to launch the
+Codex Veritas agent on its capstone mission: autonomously resolving a GitHub
+issue from end to end.
 """
 import shutil
+import re
 from pathlib import Path
 from typing_extensions import Annotated
 import typer
@@ -13,11 +15,7 @@ from rich.panel import Panel
 import git
 
 # --- Local Imports ---
-from ..mission_control import (
-    execute_mission, 
-    create_new_feature_from_issue,
-    execute_fix_bug_mission
-)
+from ..mission_control import execute_mission
 from . import tools as agent_tools
 
 # --- CLI Application Initialization ---
@@ -30,80 +28,70 @@ app = typer.Typer(
 
 console = Console()
 
-# --- CLI Commands ---
+# --- The Final, Unified Command ---
 
 @app.command(
     name="run-mission",
-    help="Run a general-purpose mission from a GitHub issue."
+    help="Launch the agent to autonomously resolve a bug described in a GitHub issue."
 )
 def run_mission_command(
     issue_url: Annotated[str, typer.Argument(help="The full URL of the GitHub issue.")],
 ):
-    """A CLI wrapper that executes a mission based on a GitHub issue."""
-    execute_mission(issue_url=issue_url, persona="default")
-
-@app.command(
-    name="create-feature",
-    help="Create a new feature based on a GitHub issue."
-)
-def create_feature_command(
-    issue_url: Annotated[str, typer.Argument(help="The full URL of the GitHub issue for the new feature.")],
-):
-    """A CLI wrapper for the 'feature_dev' persona."""
-    create_new_feature_from_issue(issue_url=issue_url)
-
-@app.command(
-    name="fix-bug",
-    help="Launch the TDD agent to write a test, fix a bug, and verify."
-)
-def fix_bug_command():
-    """A simple CLI wrapper that calls the dedicated TDD mission orchestrator."""
-    # All complex setup logic is now handled in mission_control.py
-    execute_fix_bug_mission()
-
-# --- NEW: Two-Part Command for Creating a Pull Request (Sprint 19) ---
-
-@app.command(
-    name="prepare-pr",
-    help="Have the agent perform a task and prepare a local branch for a PR."
-)
-def prepare_pr_command(
-    repo_url: Annotated[str, typer.Argument(help="The HTTPS URL of the repo to clone.")],
-    task_prompt: Annotated[str, typer.Argument(help="The specific task for the agent to perform.")],
-):
     """
-    Sets up a repo, runs an agent to perform a task, and prepares a local
-    commit on a new branch, ready for a human to push.
+    Orchestrates the entire end-to-end mission for the Journeyman agent.
+
+    This command will:
+    1. Clone the repository from the issue URL.
+    2. Set up a secure workspace with all necessary configurations.
+    3. Launch the agent with the 'journeyman' persona to fix the bug.
+    4. Guide the user through the final `git push` and `create-pr` steps.
     """
-    console.print(Panel(f"[bold blue]🚀 Initializing Pull Request Preparation Mission[/bold blue]"))
-    
-    # 1. Clean and prepare workspace by cloning the repo
+    console.print(Panel("[bold magenta]🚀 Initializing Journeyman Capstone Mission[/bold magenta]"))
+
+    # 1. Parse Repo URL from Issue URL
+    repo_match = re.search(r"github\.com/([\w.-]+/[\w.-]+)/issues/\d+", issue_url)
+    if not repo_match:
+        console.print("[bold red]Error:[/bold red] Invalid GitHub issue URL format. Could not extract repository name.")
+        raise typer.Exit(code=1)
+    repo_name = repo_match.group(1)
+    repo_url = f"https://github.com/{repo_name}.git"
+
+    # 2. Clean and prepare workspace by cloning the repo
     if agent_tools.WORKSPACE_PATH.exists():
         shutil.rmtree(agent_tools.WORKSPACE_PATH)
     console.print(f"  - Cloning repository: {repo_url}")
-    git.Repo.clone_from(repo_url, agent_tools.WORKSPACE_PATH)
-    console.print(f"  - ✅ Workspace prepared at: {agent_tools.WORKSPACE_PATH}")
+    try:
+        git.Repo.clone_from(repo_url, agent_tools.WORKSPACE_PATH)
+    except git.exc.GitCommandError as e:
+        console.print(f"[bold red]Error:[/bold red] Failed to clone repository. Please check the URL and your permissions.")
+        console.print(f"[red]{e}[/red]")
+        raise typer.Exit(code=1)
 
-    console.print(Panel("[bold green]🤖 Agent execution started with 'pr_creator' persona...[/bold green]"))
+    # 3. Copy necessary config files into the workspace
+    # No need to copy Dockerfile if not using Docker for local test runs
     
-    # --- Local imports to avoid circular dependency issues ---
-    from .core import Agent, Task
-    from .memory import save_task, load_task
-    from ..mission_control import DummyQueryEngine
+    # Create pytest config to handle the `src` layout inside the workspace
+    pytest_config = "[tool.pytest.ini_options]\npythonpath = [\"src\"]\n"
+    (agent_tools.WORKSPACE_PATH / "pyproject.toml").write_text(pytest_config, encoding="utf-8")
 
-    # Create and run the mission
-    agent = Agent(query_engine=DummyQueryEngine())
-    task = Task(goal=task_prompt, next_input=task_prompt)
-    save_task(task)
-    
-    final_task = agent.mission_loop(task, persona="pr_creator")
-    
-    console.print(Panel("[bold green]✅ Agent Work Complete[/bold green]"))
-    console.print(f"  - Final Status: {final_task.status}")
-    console.print("  - Final Answer:")
-    console.print(f"[cyan]{final_task.final_answer}[/cyan]")
-    console.print(f"\n[bold yellow]Please cd into '{agent_tools.WORKSPACE_PATH}', inspect the changes, and then run 'git push --set-upstream origin <branch_name>'[/bold yellow]")
-    console.print(f"[bold yellow]Then, run the 'create-pr' command.[/bold yellow]")
+    console.print(f"  - ✅ Workspace prepared and configured at: {agent_tools.WORKSPACE_PATH}")
+
+    # 4. Launch the mission via the central orchestrator
+    final_task = execute_mission(issue_url=issue_url, persona="journeyman")
+
+    # 5. Guide the user through the final human-in-the-loop steps
+    if final_task and final_task.status == "completed":
+        console.print(Panel("[bold yellow]Human Action Required: Push and Create PR[/bold yellow]"))
+        
+        # Extract branch name from agent's final answer for user convenience
+        branch_name_match = re.search(r"branch '([\w/-]+)'", final_task.final_answer)
+        branch_name = branch_name_match.group(1) if branch_name_match else "<branch_name>"
+
+        console.print("The agent has prepared a local commit. Please review the changes and push the branch to GitHub.")
+        console.print(f"\n1. Navigate to the workspace:\n   [cyan]cd {agent_tools.WORKSPACE_PATH}[/cyan]")
+        console.print(f"\n2. Push the branch:\n   [cyan]git push --set-upstream origin {branch_name}[/cyan]")
+        console.print(f"\n3. Create the Pull Request (replace title and body as needed):\n   [cyan]cd ..[/cyan]")
+        console.print(f"   [cyan]poetry run python -m src.codex.agent.main create-pr {repo_name} {branch_name} \"Fix: (Your PR Title)\" \"(Your PR Body)\"[/cyan]\n")
 
 
 @app.command(
